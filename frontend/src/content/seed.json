@@ -1,0 +1,218 @@
+{
+  "profile": {
+    "name": "Justin H. Sales",
+    "title": "Full-Stack Developer — AI Automation & Agentic AI",
+    "summary": "IT graduate who builds AI-powered web systems end to end, from database to interface. Currently technical lead at GOLI Company on AIKO, an AI telephone operator with voice and F&B ordering, and building face detection with blurring for body-cam footage. Trained in agentic AI through the Bayanaihan AI para sa Bayan program.",
+    "contacts": {
+      "email": "justinsales76@gmail.com",
+      "phone": "+63 968 558 4849",
+      "linkedin": "https://linkedin.com/in/sales-justin-h-8808a7257",
+      "github": "https://github.com/Kuro262004",
+      "languages": [
+        "English",
+        "Filipino",
+        "Ilocano"
+      ]
+    },
+    "extras": {
+      "now_building": "AIKO, an AI telephone operator with voice and F&B ordering, and face detection with automatic blurring for body-cam footage, both at GOLI Company.",
+      "stats": [],
+      "testimonials": []
+    }
+  },
+  "skills": [
+    {
+      "module": "AI & Voice",
+      "names": [
+        "Agentic AI",
+        "Prompt engineering",
+        "LLM APIs (Groq, Claude, GPT, DeepSeek, Qwen)",
+        "Ollama",
+        "Whisper",
+        "Fish Audio"
+      ]
+    },
+    {
+      "module": "Frontend",
+      "names": [
+        "React 19",
+        "Vite",
+        "Tailwind CSS",
+        "Radix UI",
+        "Framer Motion",
+        "TanStack Query",
+        "Zustand",
+        "Zod",
+        "Bootstrap"
+      ]
+    },
+    {
+      "module": "Backend",
+      "names": [
+        "Python",
+        "FastAPI",
+        "SQLAlchemy",
+        "Alembic",
+        "Pydantic",
+        "WebSockets",
+        "JWT auth",
+        "PHP",
+        "JavaScript"
+      ]
+    },
+    {
+      "module": "Data & DevOps",
+      "names": [
+        "PostgreSQL (Supabase)",
+        "MySQL",
+        "Docker",
+        "Podman",
+        "Vercel",
+        "Git & GitHub"
+      ]
+    },
+    {
+      "module": "Testing & Quality",
+      "names": [
+        "Vitest",
+        "Testing Library",
+        "MSW",
+        "pytest",
+        "oxlint",
+        "knip"
+      ]
+    },
+    {
+      "module": "Design & Other",
+      "names": [
+        "Figma",
+        "Photoshop",
+        "IoT",
+        "Technical writing"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "id": "aiko",
+      "org": "GOLI Company",
+      "title": "Tel. Operator AI Chatbot with F&B Ordering System",
+      "role": "Technical Lead & Lead Full-Stack Developer",
+      "period": "Present",
+      "bullets": [
+        "Leading the build of AIKO, an AI telephone operator that answers inquiries and takes F&B orders by chat and voice.",
+        "Built a real-time web platform with live updates and voice streaming over WebSockets, secured with JWT login.",
+        "Integrated Groq AI and Whisper, Fish Audio voice, Hotelogix bookings, FIUU payments, and Telavi click-to-call.",
+        "Handles testing, deployment, documentation, cost planning, and design implementation."
+      ],
+      "stack": [
+        "React 19",
+        "Tailwind CSS",
+        "FastAPI",
+        "SQLAlchemy",
+        "WebSockets",
+        "Groq",
+        "Fish Audio",
+        "Supabase",
+        "Vercel"
+      ]
+    },
+    {
+      "id": "bodycam",
+      "org": "GOLI Company",
+      "title": "Body Cam Face Detection & Blurring",
+      "role": "",
+      "period": "Present",
+      "bullets": [
+        "Integrating face detection with automatic blurring into body-cam footage to protect people's privacy."
+      ],
+      "stack": []
+    }
+  ],
+  "projects": [
+    {
+      "id": "hotel-scan-to-order",
+      "name": "Hotel Scan-to-Order System",
+      "context": "Agentic AI Bootcamp · Bayanaihan AI para sa Bayan",
+      "role": "Team Leader & Lead Developer",
+      "goal": "Replace phone-based room service.",
+      "result": "Guests scan a QR code on the room TV to order and track their bill, with full billing transparency.",
+      "stack": [
+        "Claude",
+        "Qwen",
+        "Qoder",
+        "VS Code",
+        "APIs",
+        "Workflow automation"
+      ],
+      "repo_url": null,
+      "status": "published"
+    },
+    {
+      "id": "damaiyan",
+      "name": "DamAiyan — AI System for Rural Health Units",
+      "context": "Hackathon · AI Intensive Workshop",
+      "role": "Backend Developer, AI Logic Developer & System Tester",
+      "goal": "Help Rural Health Units manage healthcare services more efficiently.",
+      "result": "Backend and AI logic integrating four LLMs (Claude, DeepSeek, Qwen, GPT) using the PRIME Method.",
+      "stack": [
+        "Claude",
+        "DeepSeek",
+        "Qwen",
+        "GPT"
+      ],
+      "repo_url": null,
+      "status": "published"
+    },
+    {
+      "id": "botpoints",
+      "name": "BOTPOINTS — Bottle Recycling Rewards",
+      "context": "Capstone Project · with the LGU of Galimuyod",
+      "role": "Assistant Developer & Technical Writer",
+      "goal": "Encourage proper plastic-bottle disposal.",
+      "result": "IoT system rewarding disposal with redeemable QR-based points.",
+      "stack": [
+        "JavaScript",
+        "PHP",
+        "MySQL",
+        "Bootstrap",
+        "IoT"
+      ],
+      "repo_url": null,
+      "status": "published"
+    }
+  ],
+  "education": [
+    {
+      "degree": "BS Information Technology",
+      "specialization": "Web and Mobile Development",
+      "school": "Ilocos Sur Polytechnic State College, Candon Campus, Candon City, Ilocos Sur",
+      "date": "May 2026"
+    }
+  ],
+  "trainings": [
+    {
+      "title": "Bayanaihan AI para sa Bayan OJT — Agentic AI Bootcamp (5 days) and AI Intensive Workshop (3 days)",
+      "provider": "Bayanaihan AI para sa Bayan",
+      "date": ""
+    },
+    {
+      "title": "Cybersecurity and Ethical Hacking",
+      "provider": "Great Eastern Hotel, Quezon City",
+      "date": "Nov 2024"
+    },
+    {
+      "title": "Basic Java Programming",
+      "provider": "DICT Pangasinan",
+      "date": "Oct 2023"
+    }
+  ],
+  "changelog": [
+    {
+      "entry": "Launched: plain view, shared knowledge base and a text assistant."
+    },
+    {
+      "entry": "Mission Control: four templates, a live agent graph and downloadable deliverables."
+    }
+  ]
+}

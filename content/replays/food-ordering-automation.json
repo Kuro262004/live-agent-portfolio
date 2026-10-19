@@ -1,0 +1,199 @@
+{
+  "template_id": "food-ordering-automation",
+  "inputs": {
+    "business": "Kape Corner, a 20-seat café",
+    "channels": "chat and voice",
+    "notes": "About 40 menu items and GCash payments"
+  },
+  "events": [
+    {
+      "agent": "planner",
+      "type": "step_started",
+      "message": "Breaking the task into steps"
+    },
+    {
+      "agent": "planner",
+      "type": "step_progress",
+      "message": "4 steps: Map how an order moves from first message to kitchen ticket; Choose channels and the order-taking dialogue; List integrations (menu, payments, staff notifications); Draft a phased rollout"
+    },
+    {
+      "agent": "planner",
+      "type": "step_done",
+      "message": "Plan ready"
+    },
+    {
+      "agent": "planner",
+      "type": "span",
+      "message": "planner trace",
+      "span": {
+        "span_id": "s_bba3c307",
+        "agent": "planner",
+        "started_at": "2026-10-19T05:38:43.770347Z",
+        "ended_at": "2026-10-19T05:38:43.774353Z",
+        "input": "Task: Plan an AI ordering system for my restaurant or café\nDeliverable: Ordering flow, channels (chat/voice), integrations to consider, rollout steps\nVisitor input: {\"business\": \"Kape Corner, a 20-seat caf\\u00e9\", \"channels\": \"chat and voice\", \"notes\": \"About 40 menu items and GCash payments\"}",
+        "prompt_template": "planner/v1\nsystem: You are the Planner agent. Reply with exactly 4 short imperative steps, one per line, no numbering.\nuser: Task: Plan an AI ordering system for my restaurant or café\nDeliverable: Ordering flow, channels (chat/voice), integrations to consider, rollout steps\nVisitor input: {\"business\": \"Kape Corner, a 20-seat caf\\u00e9\", \"channels\": \"chat and voice\", \"notes\": \"About 40 menu items and GCash payments\"}",
+        "retrieved": [],
+        "output": "Map how an order moves from first message to kitchen ticket\nChoose channels and the order-taking dialogue\nList integrations (menu, payments, staff notifications)\nDraft a phased rollout",
+        "model": "offline plan template (no AI key)",
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "latency_ms": 0,
+        "cost_usd": null,
+        "mode": "scripted",
+        "recorded_mode": null
+      }
+    },
+    {
+      "agent": "planner",
+      "type": "handoff",
+      "message": "Handing the plan to the Researcher"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_started",
+      "message": "Checking past project patterns in the shared brain"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_progress",
+      "message": "“AIKO AI telephone operator F&B ordering chat and” → experience/aiko, profile/now"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_progress",
+      "message": "“payments bookings click-to-call integrations” → nothing new"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_progress",
+      "message": "“WebSockets live updates JWT” → changelog/2"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_done",
+      "message": "3 relevant patterns found"
+    },
+    {
+      "agent": "researcher",
+      "type": "span",
+      "message": "researcher trace",
+      "span": {
+        "span_id": "s_1c87a14e",
+        "agent": "researcher",
+        "started_at": "2026-10-19T05:38:43.781582Z",
+        "ended_at": "2026-10-19T05:38:43.797161Z",
+        "input": "AIKO AI telephone operator F&B ordering chat and voice\npayments bookings click-to-call integrations\nWebSockets live updates JWT",
+        "prompt_template": "researcher/v1: one shared-brain search per query, top 2 hits with score ≥ 0.2\nqueries:\n- AIKO AI telephone operator F&B ordering chat and voice\n- payments bookings click-to-call integrations\n- WebSockets live updates JWT",
+        "retrieved": [
+          {
+            "source": "experience/aiko",
+            "score": 0.852,
+            "excerpt": "Tel. Operator AI Chatbot with F&B Ordering System at GOLI Company (Present). Role: Technical Lead & Lead Full-Stack Developer. Leading the build of AIKO, an AI "
+          },
+          {
+            "source": "profile/now",
+            "score": 0.651,
+            "excerpt": "What Justin H. Sales is building now: AIKO, an AI telephone operator with voice and F&B ordering, and face detection with automatic blurring for body-cam footag"
+          },
+          {
+            "source": "changelog/2",
+            "score": 0.493,
+            "excerpt": "Changelog: Mission Control: four templates, a live agent graph and downloadable deliverables."
+          }
+        ],
+        "output": "3 relevant patterns: experience/aiko, profile/now, changelog/2",
+        "model": "shared brain (local hashed embeddings + keyword boost)",
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "latency_ms": 5,
+        "cost_usd": null,
+        "mode": "local",
+        "recorded_mode": null
+      }
+    },
+    {
+      "agent": "researcher",
+      "type": "handoff",
+      "message": "Handing findings to the Builder"
+    },
+    {
+      "agent": "builder",
+      "type": "step_started",
+      "message": "Writing the deliverable"
+    },
+    {
+      "agent": "builder",
+      "type": "step_done",
+      "message": "Draft 1 written (472 words)"
+    },
+    {
+      "agent": "builder",
+      "type": "span",
+      "message": "builder trace",
+      "span": {
+        "span_id": "s_3c5493c8",
+        "agent": "builder",
+        "started_at": "2026-10-19T05:38:43.806928Z",
+        "ended_at": "2026-10-19T05:38:43.810062Z",
+        "input": "Task: Plan an AI ordering system for my restaurant or café\nVisitor input: {\"business\": \"Kape Corner, a 20-seat caf\\u00e9\", \"channels\": \"chat and voice\", \"notes\": \"About 40 menu items and GCash payments\"}\nPlan:\n- Map how an order moves from first message to kitchen ticket\n- Choose channels and the order-taking dialogue\n- List integrations (menu, payments, staff notifications)\n- Draft a phased rollout\nFindings from Justin's past work:\n- Tel. Operator AI Chatbot with F&B Ordering System at GOLI Company (Present). Role: Technical Lead & Lead Full-Stack Developer. Leading the build of AIKO, an AI telephone operator that answers inquiries and takes F&B orders by chat and voice. Built a real-time web platform with live updates and voice streaming over WebSockets, secured with JWT login. Integrated Groq AI and Whisper, Fish Audio voice, Hotelogix bookings, FIUU payments, and Telavi click-to-call. Handles testing, deployment, documentation, cost planning, and design implementation. Stack: React 19, Tailwind CSS, FastAPI, SQLAlchemy, WebSockets, Groq, Fish Audio, Supabase, Vercel.\n- What Justin H. Sales is building now: AIKO, an AI telephone operator with voice and F&B ordering, and face detection with automatic blurring for body-cam footage, both at GOLI Company.\n- Changelog: Mission Control: four templates, a live agent graph and downloadable deliverables.",
+        "prompt_template": "builder/v1\nsystem: You are the Builder agent for Justin H. Sales's portfolio demo. Write a practical, concrete deliverable in Markdown for the visitor's business. Use ONLY these H2 headings, in order: Goal, Ordering flow, Channels, Integrations to consider, Rollout steps, Patterns from past work. Under 'Patterns from past work' cite only the supplied findings. Never invent clients, metrics or results. Be concise.\nuser: Task: Plan an AI ordering system for my restaurant or café\nVisitor input: {\"business\": \"Kape Corner, a 20-seat caf\\u00e9\", \"channels\": \"chat and voice\", \"notes\": \"About 40 menu items and GCash payments\"}\nPlan:\n- Map how an order moves from first message to kitchen ticket\n- Choose channels and the order-taking dialogue\n- List integrations (menu, payments, staff notifications)\n- Draft a phased rollout\nFindings from Justin's past work:\n- Tel. Operator AI Chatbot with F&B Ordering System at GOLI Company (Present). Role: Technical Lead & Lead Full-Stack Developer. Leading the build of AIKO, an AI telephone operator that answers inquiries and takes F&B orders by chat and voice. Built a real-time web platform with live updates and voice streaming over WebSockets, secured with JWT login. Integrated Groq AI and Whisper, Fish Audio voice, Hotelogix bookings, FIUU payments, and Telavi click-to-call. Handles testing, deployment, documentation, cost planning, and design implementation. Stack: React 19, Tailwind CSS, FastAPI, SQLAlchemy, WebSockets, Groq, Fish Audio, Supabase, Vercel.\n- What Justin H. Sales is building now: AIKO, an AI telephone operator with voice and F&B ordering, and face detection with automatic blurring for body-cam footage, both at GOLI Company.\n- Changelog: Mission Control: four templates, a live agent graph and downloadable deliverables.",
+        "retrieved": [],
+        "output": "# AI ordering system plan — Kape Corner, a 20-seat café\n\n## Goal\nLet customers of Kape Corner, a 20-seat café place and confirm orders through chat and voice without staff taking each one by hand, while staff keep a live view of every order.\n\nNotes from you: About 40 menu items and GCash payments\n\nPlan followed:\n1. Map how an order moves from first message to kitchen ticket\n2. Choose channels and the order-taking dialogue\n3. List integrations (menu, payments, staff notifications)\n4. Draft a phased rollout\n\n## Ordering flow\n1. **Greet and identify intent.** The assistant greets the customer and asks whether they want to order, ask a question, or reach a person.\n2. **Take the order.** It reads from the menu (name, size, add-ons, availability) and builds a running order, repeating it back after each change.\n3. **Resolve ambiguity.** Unknown items get a short clarifying question or two close matches, never a guess.\n4. **Confirm.** It reads the full order, the total and the pickup or delivery detail, then asks for a clear yes.\n5. **Pay and send.** It takes payment or marks cash on pickup, then sends a ticket to the kitchen display.\n6. **Update.** The customer gets a confirmation and a ready notice.\n\n## Channels\n- **Chat:** text ordering on the website or a messaging app, with buttons for common items and a visible order summary.\n- **Voice:** a phone line answered by the assistant, with speech-to-text, a short spoken confirmation, and a handoff to a person on request.\n- Both channels should write to the same order record so staff see one queue.\n\n## Integrations to consider\n- Menu and stock source, so sold-out items are never offered.\n- Payments (an e-wallet or card provider) with a payment-confirmed event before the kitchen ticket prints.\n- Kitchen display or printer, and staff notifications for problem orders.\n- Click-to-call or a telephony provider for the voice line.\n- An admin login (JWT-style) for staff, with live updates over WebSockets.\n\n## Rollout steps\n1. Load the real menu and test with staff for a week, with staff confirming every order.\n2. Soft launch to regular customers on one channel.\n3. Turn on payments, then the second channel.\n4. Review failed or handed-off orders weekly and fix the top causes.\n\n## Patterns from past work\n- (experience) Tel. Operator AI Chatbot with F&B Ordering System at GOLI Company (Present). Role: Technical Lead & Lead Full-Stack Developer. Leading the build of AIKO, an AI telephone operator that answers inquiries and takes F&B orders by cha…\n- (profile) What Justin H. Sales is building now: AIKO, an AI telephone operator with voice and F&B ordering, and face detection with automatic blurring for body-cam footage, both at GOLI Company.\n- (changelog) Changelog: Mission Control: four templates, a live agent graph and downloadable deliverables.\n",
+        "model": "offline deliverable template (no AI key)",
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "latency_ms": 3,
+        "cost_usd": null,
+        "mode": "scripted",
+        "recorded_mode": null
+      }
+    },
+    {
+      "agent": "builder",
+      "type": "handoff",
+      "message": "Handing the draft to the Reviewer"
+    },
+    {
+      "agent": "reviewer",
+      "type": "step_started",
+      "message": "Checking quality and scope"
+    },
+    {
+      "agent": "reviewer",
+      "type": "step_done",
+      "message": "Approved: all sections present and on scope"
+    },
+    {
+      "agent": "reviewer",
+      "type": "span",
+      "message": "reviewer trace",
+      "span": {
+        "span_id": "s_07e92094",
+        "agent": "reviewer",
+        "started_at": "2026-10-19T05:38:43.819605Z",
+        "ended_at": "2026-10-19T05:38:43.825380Z",
+        "input": "Draft 1 (472 words)",
+        "prompt_template": "reviewer/v1: rule-based checks\n- every required section present: Goal, Ordering flow, Channels, Integrations to consider, Rollout steps, Patterns from past work\n- stays on the visitor's business and inputs",
+        "retrieved": [],
+        "output": "Approved: all sections present and on scope",
+        "model": "rule-based reviewer (no model call)",
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "latency_ms": 0,
+        "cost_usd": null,
+        "mode": "local",
+        "recorded_mode": null
+      }
+    },
+    {
+      "agent": "reviewer",
+      "type": "complete",
+      "message": "Mission complete: deliverable ready"
+    }
+  ],
+  "result": {
+    "title": "Plan an AI ordering system for my restaurant or café",
+    "markdown": "# AI ordering system plan — Kape Corner, a 20-seat café\n\n## Goal\nLet customers of Kape Corner, a 20-seat café place and confirm orders through chat and voice without staff taking each one by hand, while staff keep a live view of every order.\n\nNotes from you: About 40 menu items and GCash payments\n\nPlan followed:\n1. Map how an order moves from first message to kitchen ticket\n2. Choose channels and the order-taking dialogue\n3. List integrations (menu, payments, staff notifications)\n4. Draft a phased rollout\n\n## Ordering flow\n1. **Greet and identify intent.** The assistant greets the customer and asks whether they want to order, ask a question, or reach a person.\n2. **Take the order.** It reads from the menu (name, size, add-ons, availability) and builds a running order, repeating it back after each change.\n3. **Resolve ambiguity.** Unknown items get a short clarifying question or two close matches, never a guess.\n4. **Confirm.** It reads the full order, the total and the pickup or delivery detail, then asks for a clear yes.\n5. **Pay and send.** It takes payment or marks cash on pickup, then sends a ticket to the kitchen display.\n6. **Update.** The customer gets a confirmation and a ready notice.\n\n## Channels\n- **Chat:** text ordering on the website or a messaging app, with buttons for common items and a visible order summary.\n- **Voice:** a phone line answered by the assistant, with speech-to-text, a short spoken confirmation, and a handoff to a person on request.\n- Both channels should write to the same order record so staff see one queue.\n\n## Integrations to consider\n- Menu and stock source, so sold-out items are never offered.\n- Payments (an e-wallet or card provider) with a payment-confirmed event before the kitchen ticket prints.\n- Kitchen display or printer, and staff notifications for problem orders.\n- Click-to-call or a telephony provider for the voice line.\n- An admin login (JWT-style) for staff, with live updates over WebSockets.\n\n## Rollout steps\n1. Load the real menu and test with staff for a week, with staff confirming every order.\n2. Soft launch to regular customers on one channel.\n3. Turn on payments, then the second channel.\n4. Review failed or handed-off orders weekly and fix the top causes.\n\n## Patterns from past work\n- (experience) Tel. Operator AI Chatbot with F&B Ordering System at GOLI Company (Present). Role: Technical Lead & Lead Full-Stack Developer. Leading the build of AIKO, an AI telephone operator that answers inquiries and takes F&B orders by cha…\n- (profile) What Justin H. Sales is building now: AIKO, an AI telephone operator with voice and F&B ordering, and face detection with automatic blurring for body-cam footage, both at GOLI Company.\n- (changelog) Changelog: Mission Control: four templates, a live agent graph and downloadable deliverables.\n",
+    "template_id": "food-ordering-automation"
+  }
+}

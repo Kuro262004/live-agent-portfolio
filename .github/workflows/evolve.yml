@@ -1,0 +1,24 @@
+name: Nightly evolution
+
+# Asks the API to read Justin's public GitHub activity and write DRAFT updates.
+# Nothing goes live until it is approved on /admin.
+on:
+  schedule:
+    - cron: "0 18 * * *" # 02:00 Philippine time
+  workflow_dispatch:
+
+jobs:
+  evolve:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call POST /evolve
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          EVOLVE_SECRET: ${{ secrets.EVOLVE_SECRET }}
+        run: |
+          test -n "$API_URL" && test -n "$EVOLVE_SECRET" || { echo "Set the API_URL and EVOLVE_SECRET repository secrets."; exit 1; }
+          # --retry covers a free-tier host that is still waking up
+          curl --fail --silent --show-error --max-time 180 \
+            --retry 3 --retry-delay 30 --retry-all-errors \
+            -X POST "${API_URL%/}/evolve" \
+            -H "Authorization: Bearer $EVOLVE_SECRET"

@@ -1,0 +1,204 @@
+{
+  "template_id": "hotel-self-service",
+  "inputs": {
+    "business": "40-room boutique hotel",
+    "services": "room service and laundry",
+    "notes": ""
+  },
+  "events": [
+    {
+      "agent": "planner",
+      "type": "step_started",
+      "message": "Breaking the task into steps"
+    },
+    {
+      "agent": "planner",
+      "type": "step_progress",
+      "message": "4 steps: Trace the guest journey from check-in to check-out; Design the QR ordering flow for the room; Define what the guest sees on the bill; Define the staff dashboard and alerts"
+    },
+    {
+      "agent": "planner",
+      "type": "step_done",
+      "message": "Plan ready"
+    },
+    {
+      "agent": "planner",
+      "type": "span",
+      "message": "planner trace",
+      "span": {
+        "span_id": "s_ca959531",
+        "agent": "planner",
+        "started_at": "2026-10-19T05:38:43.859612Z",
+        "ended_at": "2026-10-19T05:38:43.867092Z",
+        "input": "Task: Plan guest self-service for my hotel\nDeliverable: Guest journey, QR ordering flow, billing view, staff dashboard\nVisitor input: {\"business\": \"40-room boutique hotel\", \"services\": \"room service and laundry\", \"notes\": \"\"}",
+        "prompt_template": "planner/v1\nsystem: You are the Planner agent. Reply with exactly 4 short imperative steps, one per line, no numbering.\nuser: Task: Plan guest self-service for my hotel\nDeliverable: Guest journey, QR ordering flow, billing view, staff dashboard\nVisitor input: {\"business\": \"40-room boutique hotel\", \"services\": \"room service and laundry\", \"notes\": \"\"}",
+        "retrieved": [],
+        "output": "Trace the guest journey from check-in to check-out\nDesign the QR ordering flow for the room\nDefine what the guest sees on the bill\nDefine the staff dashboard and alerts",
+        "model": "offline plan template (no AI key)",
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "latency_ms": 0,
+        "cost_usd": null,
+        "mode": "scripted",
+        "recorded_mode": null
+      }
+    },
+    {
+      "agent": "planner",
+      "type": "handoff",
+      "message": "Handing the plan to the Researcher"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_started",
+      "message": "Checking past project patterns in the shared brain"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_progress",
+      "message": "“Hotel Scan-to-Order QR code room TV billing tran” → projects/hotel-scan-to-order, projects/botpoints"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_progress",
+      "message": "“Hotelogix bookings FIUU payments” → experience/aiko"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_progress",
+      "message": "“workflow automation team leader” → profile/1"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_done",
+      "message": "4 relevant patterns found"
+    },
+    {
+      "agent": "researcher",
+      "type": "span",
+      "message": "researcher trace",
+      "span": {
+        "span_id": "s_93f5eec3",
+        "agent": "researcher",
+        "started_at": "2026-10-19T05:38:43.878422Z",
+        "ended_at": "2026-10-19T05:38:43.898489Z",
+        "input": "Hotel Scan-to-Order QR code room TV billing transparency\nHotelogix bookings FIUU payments\nworkflow automation team leader",
+        "prompt_template": "researcher/v1: one shared-brain search per query, top 2 hits with score ≥ 0.2\nqueries:\n- Hotel Scan-to-Order QR code room TV billing transparency\n- Hotelogix bookings FIUU payments\n- workflow automation team leader",
+        "retrieved": [
+          {
+            "source": "projects/hotel-scan-to-order",
+            "score": 0.897,
+            "excerpt": "Project Hotel Scan-to-Order System (Agentic AI Bootcamp · Bayanaihan AI para sa Bayan). Role: Team Leader & Lead Developer. Goal: Replace phone-based room servi"
+          },
+          {
+            "source": "projects/botpoints",
+            "score": 0.456,
+            "excerpt": "Project BOTPOINTS — Bottle Recycling Rewards (Capstone Project · with the LGU of Galimuyod). Role: Assistant Developer & Technical Writer. Goal: Encourage prope"
+          },
+          {
+            "source": "experience/aiko",
+            "score": 0.753,
+            "excerpt": "Tel. Operator AI Chatbot with F&B Ordering System at GOLI Company (Present). Role: Technical Lead & Lead Full-Stack Developer. Leading the build of AIKO, an AI "
+          },
+          {
+            "source": "profile/1",
+            "score": 0.262,
+            "excerpt": "Justin H. Sales — Full-Stack Developer — AI Automation & Agentic AI. IT graduate who builds AI-powered web systems end to end, from database to interface. Curre"
+          }
+        ],
+        "output": "4 relevant patterns: projects/hotel-scan-to-order, projects/botpoints, experience/aiko, profile/1",
+        "model": "shared brain (local hashed embeddings + keyword boost)",
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "latency_ms": 6,
+        "cost_usd": null,
+        "mode": "local",
+        "recorded_mode": null
+      }
+    },
+    {
+      "agent": "researcher",
+      "type": "handoff",
+      "message": "Handing findings to the Builder"
+    },
+    {
+      "agent": "builder",
+      "type": "step_started",
+      "message": "Writing the deliverable"
+    },
+    {
+      "agent": "builder",
+      "type": "step_done",
+      "message": "Draft 1 written (433 words)"
+    },
+    {
+      "agent": "builder",
+      "type": "span",
+      "message": "builder trace",
+      "span": {
+        "span_id": "s_cca67e4c",
+        "agent": "builder",
+        "started_at": "2026-10-19T05:38:43.908135Z",
+        "ended_at": "2026-10-19T05:38:43.910646Z",
+        "input": "Task: Plan guest self-service for my hotel\nVisitor input: {\"business\": \"40-room boutique hotel\", \"services\": \"room service and laundry\", \"notes\": \"\"}\nPlan:\n- Trace the guest journey from check-in to check-out\n- Design the QR ordering flow for the room\n- Define what the guest sees on the bill\n- Define the staff dashboard and alerts\nFindings from Justin's past work:\n- Project Hotel Scan-to-Order System (Agentic AI Bootcamp · Bayanaihan AI para sa Bayan). Role: Team Leader & Lead Developer. Goal: Replace phone-based room service. Result: Guests scan a QR code on the room TV to order and track their bill, with full billing transparency. Tools: Claude, Qwen, Qoder, VS Code, APIs, Workflow automation.\n- Project BOTPOINTS — Bottle Recycling Rewards (Capstone Project · with the LGU of Galimuyod). Role: Assistant Developer & Technical Writer. Goal: Encourage proper plastic-bottle disposal. Result: IoT system rewarding disposal with redeemable QR-based points. Tools: JavaScript, PHP, MySQL, Bootstrap, IoT.\n- Tel. Operator AI Chatbot with F&B Ordering System at GOLI Company (Present). Role: Technical Lead & Lead Full-Stack Developer. Leading the build of AIKO, an AI telephone operator that answers inquiries and takes F&B orders by chat and voice. Built a real-time web platform with live updates and voice streaming over WebSockets, secured with JWT login. Integrated Groq AI and Whisper, Fish Audio voice, Hotelogix bookings, FIUU payments, and Telavi click-to-call. Handles testing, deployment, documentation, cost planning, and design implementation. Stack: React 19, Tailwind CSS, FastAPI, SQLAlchemy, WebSockets, Groq, Fish Audio, Supabase, Vercel.\n- Justin H. Sales — Full-Stack Developer — AI Automation & Agentic AI. IT graduate who builds AI-powered web systems end to end, from database to interface. Currently technical lead at GOLI Company on AIKO, an AI telephone operator with voice and F&B ordering, and building face detection with blurring for body-cam footage. Trained in agentic AI through the Bayanaihan AI para sa Bayan program.",
+        "prompt_template": "builder/v1\nsystem: You are the Builder agent for Justin H. Sales's portfolio demo. Write a practical, concrete deliverable in Markdown for the visitor's business. Use ONLY these H2 headings, in order: Goal, Guest journey, QR ordering flow, Billing view, Staff dashboard, Patterns from past work. Under 'Patterns from past work' cite only the supplied findings. Never invent clients, metrics or results. Be concise.\nuser: Task: Plan guest self-service for my hotel\nVisitor input: {\"business\": \"40-room boutique hotel\", \"services\": \"room service and laundry\", \"notes\": \"\"}\nPlan:\n- Trace the guest journey from check-in to check-out\n- Design the QR ordering flow for the room\n- Define what the guest sees on the bill\n- Define the staff dashboard and alerts\nFindings from Justin's past work:\n- Project Hotel Scan-to-Order System (Agentic AI Bootcamp · Bayanaihan AI para sa Bayan). Role: Team Leader & Lead Developer. Goal: Replace phone-based room service. Result: Guests scan a QR code on the room TV to order and track their bill, with full billing transparency. Tools: Claude, Qwen, Qoder, VS Code, APIs, Workflow automation.\n- Project BOTPOINTS — Bottle Recycling Rewards (Capstone Project · with the LGU of Galimuyod). Role: Assistant Developer & Technical Writer. Goal: Encourage proper plastic-bottle disposal. Result: IoT system rewarding disposal with redeemable QR-based points. Tools: JavaScript, PHP, MySQL, Bootstrap, IoT.\n- Tel. Operator AI Chatbot with F&B Ordering System at GOLI Company (Present). Role: Technical Lead & Lead Full-Stack Developer. Leading the build of AIKO, an AI telephone operator that answers inquiries and takes F&B orders by chat and voice. Built a real-time web platform with live updates and voice streaming over WebSockets, secured with JWT login. Integrated Groq AI and Whisper, Fish Audio voice, Hotelogix bookings, FIUU payments, and Telavi click-to-call. Handles testing, deployment, documentation, cost planning, and design implementation. Stack: React 19, Tailwind CSS, FastAPI, SQLAlchemy, WebSockets, Groq, Fish Audio, Supabase, Vercel.\n- Justin H. Sales — Full-Stack Developer — AI Automation & Agentic AI. IT graduate who builds AI-powered web systems end to end, from database to interface. Currently technical lead at GOLI Company on AIKO, an AI telephone operator with voice and F&B ordering, and building face detection with blurring for body-cam footage. Trained in agentic AI through the Bayanaihan AI para sa Bayan program.",
+        "retrieved": [],
+        "output": "# Guest self-service plan — 40-room boutique hotel\n\n## Goal\nReplace phone calls to the front desk with self-service for room service and laundry, so guests order faster and see exactly what they owe.\n\nPlan followed:\n1. Trace the guest journey from check-in to check-out\n2. Design the QR ordering flow for the room\n3. Define what the guest sees on the bill\n4. Define the staff dashboard and alerts\n\n## Guest journey\n1. **Arrival.** Check-in links the room to the guest's stay.\n2. **In the room.** A QR code on the room TV (or card) opens the menu on the guest's own phone, with no app to install.\n3. **Order.** The guest picks items from room service and laundry, adds notes, and submits.\n4. **Track.** They see status: received, preparing, on the way, delivered.\n5. **Check-out.** The final bill matches what they saw during the stay.\n\n## QR ordering flow\n1. Scan the QR code, which carries the room identifier.\n2. The page verifies the room has an active stay.\n3. The guest builds an order and reviews it.\n4. Submit; staff receive it instantly and the guest gets a reference.\n5. The guest can cancel until staff accept it.\n\n## Billing view\n- A running list of orders with item, quantity, price and time.\n- Taxes and service charges shown as separate lines.\n- A clear total that updates after each order, with the same figures at check-out.\n\n## Staff dashboard\n- A live queue of orders by room and age, with colour for delayed ones.\n- One-tap status changes that update the guest's tracker.\n- Item availability toggles and a daily summary.\n\n## Patterns from past work\n- (projects) Project Hotel Scan-to-Order System (Agentic AI Bootcamp · Bayanaihan AI para sa Bayan). Role: Team Leader & Lead Developer. Goal: Replace phone-based room service. Result: Guests scan a QR code on the room TV to order and track t…\n- (projects) Project BOTPOINTS — Bottle Recycling Rewards (Capstone Project · with the LGU of Galimuyod). Role: Assistant Developer & Technical Writer. Goal: Encourage proper plastic-bottle disposal. Result: IoT system rewarding disposal with…\n- (experience) Tel. Operator AI Chatbot with F&B Ordering System at GOLI Company (Present). Role: Technical Lead & Lead Full-Stack Developer. Leading the build of AIKO, an AI telephone operator that answers inquiries and takes F&B orders by cha…\n- (profile) Justin H. Sales — Full-Stack Developer — AI Automation & Agentic AI. IT graduate who builds AI-powered web systems end to end, from database to interface. Currently technical lead at GOLI Company on AIKO, an AI telephone operator…\n",
+        "model": "offline deliverable template (no AI key)",
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "latency_ms": 3,
+        "cost_usd": null,
+        "mode": "scripted",
+        "recorded_mode": null
+      }
+    },
+    {
+      "agent": "builder",
+      "type": "handoff",
+      "message": "Handing the draft to the Reviewer"
+    },
+    {
+      "agent": "reviewer",
+      "type": "step_started",
+      "message": "Checking quality and scope"
+    },
+    {
+      "agent": "reviewer",
+      "type": "step_done",
+      "message": "Approved: all sections present and on scope"
+    },
+    {
+      "agent": "reviewer",
+      "type": "span",
+      "message": "reviewer trace",
+      "span": {
+        "span_id": "s_5181ab26",
+        "agent": "reviewer",
+        "started_at": "2026-10-19T05:38:43.920172Z",
+        "ended_at": "2026-10-19T05:38:43.923173Z",
+        "input": "Draft 1 (433 words)",
+        "prompt_template": "reviewer/v1: rule-based checks\n- every required section present: Goal, Guest journey, QR ordering flow, Billing view, Staff dashboard, Patterns from past work\n- stays on the visitor's business and inputs",
+        "retrieved": [],
+        "output": "Approved: all sections present and on scope",
+        "model": "rule-based reviewer (no model call)",
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "latency_ms": 0,
+        "cost_usd": null,
+        "mode": "local",
+        "recorded_mode": null
+      }
+    },
+    {
+      "agent": "reviewer",
+      "type": "complete",
+      "message": "Mission complete: deliverable ready"
+    }
+  ],
+  "result": {
+    "title": "Plan guest self-service for my hotel",
+    "markdown": "# Guest self-service plan — 40-room boutique hotel\n\n## Goal\nReplace phone calls to the front desk with self-service for room service and laundry, so guests order faster and see exactly what they owe.\n\nPlan followed:\n1. Trace the guest journey from check-in to check-out\n2. Design the QR ordering flow for the room\n3. Define what the guest sees on the bill\n4. Define the staff dashboard and alerts\n\n## Guest journey\n1. **Arrival.** Check-in links the room to the guest's stay.\n2. **In the room.** A QR code on the room TV (or card) opens the menu on the guest's own phone, with no app to install.\n3. **Order.** The guest picks items from room service and laundry, adds notes, and submits.\n4. **Track.** They see status: received, preparing, on the way, delivered.\n5. **Check-out.** The final bill matches what they saw during the stay.\n\n## QR ordering flow\n1. Scan the QR code, which carries the room identifier.\n2. The page verifies the room has an active stay.\n3. The guest builds an order and reviews it.\n4. Submit; staff receive it instantly and the guest gets a reference.\n5. The guest can cancel until staff accept it.\n\n## Billing view\n- A running list of orders with item, quantity, price and time.\n- Taxes and service charges shown as separate lines.\n- A clear total that updates after each order, with the same figures at check-out.\n\n## Staff dashboard\n- A live queue of orders by room and age, with colour for delayed ones.\n- One-tap status changes that update the guest's tracker.\n- Item availability toggles and a daily summary.\n\n## Patterns from past work\n- (projects) Project Hotel Scan-to-Order System (Agentic AI Bootcamp · Bayanaihan AI para sa Bayan). Role: Team Leader & Lead Developer. Goal: Replace phone-based room service. Result: Guests scan a QR code on the room TV to order and track t…\n- (projects) Project BOTPOINTS — Bottle Recycling Rewards (Capstone Project · with the LGU of Galimuyod). Role: Assistant Developer & Technical Writer. Goal: Encourage proper plastic-bottle disposal. Result: IoT system rewarding disposal with…\n- (experience) Tel. Operator AI Chatbot with F&B Ordering System at GOLI Company (Present). Role: Technical Lead & Lead Full-Stack Developer. Leading the build of AIKO, an AI telephone operator that answers inquiries and takes F&B orders by cha…\n- (profile) Justin H. Sales — Full-Stack Developer — AI Automation & Agentic AI. IT graduate who builds AI-powered web systems end to end, from database to interface. Currently technical lead at GOLI Company on AIKO, an AI telephone operator…\n",
+    "template_id": "hotel-self-service"
+  }
+}

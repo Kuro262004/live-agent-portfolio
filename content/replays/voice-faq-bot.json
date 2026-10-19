@@ -1,0 +1,199 @@
+{
+  "template_id": "voice-faq-bot",
+  "inputs": {
+    "business": "Dental clinic",
+    "faqs": "opening hours, prices, booking an appointment",
+    "notes": "Filipino and English callers"
+  },
+  "events": [
+    {
+      "agent": "planner",
+      "type": "step_started",
+      "message": "Breaking the task into steps"
+    },
+    {
+      "agent": "planner",
+      "type": "step_progress",
+      "message": "4 steps: Sketch the call flow from greeting to goodbye; Turn the top questions into intents; Decide when the bot hands the call to a person; List the inputs needed for a cost estimate"
+    },
+    {
+      "agent": "planner",
+      "type": "step_done",
+      "message": "Plan ready"
+    },
+    {
+      "agent": "planner",
+      "type": "span",
+      "message": "planner trace",
+      "span": {
+        "span_id": "s_b537d6db",
+        "agent": "planner",
+        "started_at": "2026-10-19T05:38:43.950495Z",
+        "ended_at": "2026-10-19T05:38:43.957496Z",
+        "input": "Task: Scope a voice assistant for my business FAQs\nDeliverable: Call flow, sample intents, handoff rules, cost estimate inputs\nVisitor input: {\"business\": \"Dental clinic\", \"faqs\": \"opening hours, prices, booking an appointment\", \"notes\": \"Filipino and English callers\"}",
+        "prompt_template": "planner/v1\nsystem: You are the Planner agent. Reply with exactly 4 short imperative steps, one per line, no numbering.\nuser: Task: Scope a voice assistant for my business FAQs\nDeliverable: Call flow, sample intents, handoff rules, cost estimate inputs\nVisitor input: {\"business\": \"Dental clinic\", \"faqs\": \"opening hours, prices, booking an appointment\", \"notes\": \"Filipino and English callers\"}",
+        "retrieved": [],
+        "output": "Sketch the call flow from greeting to goodbye\nTurn the top questions into intents\nDecide when the bot hands the call to a person\nList the inputs needed for a cost estimate",
+        "model": "offline plan template (no AI key)",
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "latency_ms": 0,
+        "cost_usd": null,
+        "mode": "scripted",
+        "recorded_mode": null
+      }
+    },
+    {
+      "agent": "planner",
+      "type": "handoff",
+      "message": "Handing the plan to the Researcher"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_started",
+      "message": "Checking past project patterns in the shared brain"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_progress",
+      "message": "“voice streaming Whisper Fish Audio WebSockets” → experience/aiko, skills/AI & Voice"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_progress",
+      "message": "“AIKO telephone operator answers inquiries” → profile/now"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_progress",
+      "message": "“Telavi click-to-call Groq” → nothing new"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_done",
+      "message": "3 relevant patterns found"
+    },
+    {
+      "agent": "researcher",
+      "type": "span",
+      "message": "researcher trace",
+      "span": {
+        "span_id": "s_3818f40f",
+        "agent": "researcher",
+        "started_at": "2026-10-19T05:38:43.967502Z",
+        "ended_at": "2026-10-19T05:38:43.987640Z",
+        "input": "voice streaming Whisper Fish Audio WebSockets\nAIKO telephone operator answers inquiries\nTelavi click-to-call Groq",
+        "prompt_template": "researcher/v1: one shared-brain search per query, top 2 hits with score ≥ 0.2\nqueries:\n- voice streaming Whisper Fish Audio WebSockets\n- AIKO telephone operator answers inquiries\n- Telavi click-to-call Groq",
+        "retrieved": [
+          {
+            "source": "experience/aiko",
+            "score": 0.854,
+            "excerpt": "Tel. Operator AI Chatbot with F&B Ordering System at GOLI Company (Present). Role: Technical Lead & Lead Full-Stack Developer. Leading the build of AIKO, an AI "
+          },
+          {
+            "source": "skills/AI & Voice",
+            "score": 0.768,
+            "excerpt": "Skills — AI & Voice: Agentic AI, Prompt engineering, LLM APIs (Groq, Claude, GPT, DeepSeek, Qwen), Ollama, Whisper, Fish Audio."
+          },
+          {
+            "source": "profile/now",
+            "score": 0.251,
+            "excerpt": "What Justin H. Sales is building now: AIKO, an AI telephone operator with voice and F&B ordering, and face detection with automatic blurring for body-cam footag"
+          }
+        ],
+        "output": "3 relevant patterns: experience/aiko, skills/AI & Voice, profile/now",
+        "model": "shared brain (local hashed embeddings + keyword boost)",
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "latency_ms": 6,
+        "cost_usd": null,
+        "mode": "local",
+        "recorded_mode": null
+      }
+    },
+    {
+      "agent": "researcher",
+      "type": "handoff",
+      "message": "Handing findings to the Builder"
+    },
+    {
+      "agent": "builder",
+      "type": "step_started",
+      "message": "Writing the deliverable"
+    },
+    {
+      "agent": "builder",
+      "type": "step_done",
+      "message": "Draft 1 written (411 words)"
+    },
+    {
+      "agent": "builder",
+      "type": "span",
+      "message": "builder trace",
+      "span": {
+        "span_id": "s_51979f47",
+        "agent": "builder",
+        "started_at": "2026-10-19T05:38:43.997376Z",
+        "ended_at": "2026-10-19T05:38:44.000740Z",
+        "input": "Task: Scope a voice assistant for my business FAQs\nVisitor input: {\"business\": \"Dental clinic\", \"faqs\": \"opening hours, prices, booking an appointment\", \"notes\": \"Filipino and English callers\"}\nPlan:\n- Sketch the call flow from greeting to goodbye\n- Turn the top questions into intents\n- Decide when the bot hands the call to a person\n- List the inputs needed for a cost estimate\nFindings from Justin's past work:\n- Tel. Operator AI Chatbot with F&B Ordering System at GOLI Company (Present). Role: Technical Lead & Lead Full-Stack Developer. Leading the build of AIKO, an AI telephone operator that answers inquiries and takes F&B orders by chat and voice. Built a real-time web platform with live updates and voice streaming over WebSockets, secured with JWT login. Integrated Groq AI and Whisper, Fish Audio voice, Hotelogix bookings, FIUU payments, and Telavi click-to-call. Handles testing, deployment, documentation, cost planning, and design implementation. Stack: React 19, Tailwind CSS, FastAPI, SQLAlchemy, WebSockets, Groq, Fish Audio, Supabase, Vercel.\n- Skills — AI & Voice: Agentic AI, Prompt engineering, LLM APIs (Groq, Claude, GPT, DeepSeek, Qwen), Ollama, Whisper, Fish Audio.\n- What Justin H. Sales is building now: AIKO, an AI telephone operator with voice and F&B ordering, and face detection with automatic blurring for body-cam footage, both at GOLI Company.",
+        "prompt_template": "builder/v1\nsystem: You are the Builder agent for Justin H. Sales's portfolio demo. Write a practical, concrete deliverable in Markdown for the visitor's business. Use ONLY these H2 headings, in order: Goal, Call flow, Sample intents, Handoff rules, Cost estimate inputs, Patterns from past work. Under 'Patterns from past work' cite only the supplied findings. Never invent clients, metrics or results. Be concise.\nuser: Task: Scope a voice assistant for my business FAQs\nVisitor input: {\"business\": \"Dental clinic\", \"faqs\": \"opening hours, prices, booking an appointment\", \"notes\": \"Filipino and English callers\"}\nPlan:\n- Sketch the call flow from greeting to goodbye\n- Turn the top questions into intents\n- Decide when the bot hands the call to a person\n- List the inputs needed for a cost estimate\nFindings from Justin's past work:\n- Tel. Operator AI Chatbot with F&B Ordering System at GOLI Company (Present). Role: Technical Lead & Lead Full-Stack Developer. Leading the build of AIKO, an AI telephone operator that answers inquiries and takes F&B orders by chat and voice. Built a real-time web platform with live updates and voice streaming over WebSockets, secured with JWT login. Integrated Groq AI and Whisper, Fish Audio voice, Hotelogix bookings, FIUU payments, and Telavi click-to-call. Handles testing, deployment, documentation, cost planning, and design implementation. Stack: React 19, Tailwind CSS, FastAPI, SQLAlchemy, WebSockets, Groq, Fish Audio, Supabase, Vercel.\n- Skills — AI & Voice: Agentic AI, Prompt engineering, LLM APIs (Groq, Claude, GPT, DeepSeek, Qwen), Ollama, Whisper, Fish Audio.\n- What Justin H. Sales is building now: AIKO, an AI telephone operator with voice and F&B ordering, and face detection with automatic blurring for body-cam footage, both at GOLI Company.",
+        "retrieved": [],
+        "output": "# Voice FAQ assistant scope — Dental clinic\n\n## Goal\nAnswer the most common phone questions for Dental clinic automatically and pass everything else to a person.\n\nNotes from you: Filipino and English callers\n\nPlan followed:\n1. Sketch the call flow from greeting to goodbye\n2. Turn the top questions into intents\n3. Decide when the bot hands the call to a person\n4. List the inputs needed for a cost estimate\n\n## Call flow\n1. **Greeting.** \"Thanks for calling Dental clinic. I'm the automated assistant. How can I help?\"\n2. **Listen and classify** the request into an intent (below), in the caller's language.\n3. **Answer** in one or two short sentences, then ask \"Does that help?\"\n4. **Offer next step:** another question, a booking or message, or a person.\n5. **Close** politely; log the intent and outcome (no audio is kept).\n\n## Sample intents\n| Intent | Example | Action |\n|---|---|---|\n| `faq_opening_hours` | “opening hours” | Answer from the approved FAQ text |\n| `faq_prices` | “prices” | Answer from the approved FAQ text |\n| `faq_booking_an_appointment` | “booking an appointment” | Answer from the approved FAQ text |\n| `human_request` | “Can I talk to someone?” | Hand off immediately |\n| `unknown` | Anything not covered | Apologise once, offer a person or callback |\n\n## Handoff rules\n- The caller asks for a person, or sounds frustrated.\n- Two failed attempts to understand the same question.\n- Anything about payments disputes, emergencies, or complaints.\n- Outside the FAQ scope: take a name and number for a callback.\n\n## Cost estimate inputs\n- Calls per month and average call length (minutes).\n- Share of calls handled without a person (target after pilot).\n- Speech-to-text, language model and text-to-speech price per minute or per character.\n- Telephony minutes and number rental.\n- One-off setup: FAQ writing, voice choice, testing.\n\n## Patterns from past work\n- (experience) Tel. Operator AI Chatbot with F&B Ordering System at GOLI Company (Present). Role: Technical Lead & Lead Full-Stack Developer. Leading the build of AIKO, an AI telephone operator that answers inquiries and takes F&B orders by cha…\n- (skills) Skills — AI & Voice: Agentic AI, Prompt engineering, LLM APIs (Groq, Claude, GPT, DeepSeek, Qwen), Ollama, Whisper, Fish Audio.\n- (profile) What Justin H. Sales is building now: AIKO, an AI telephone operator with voice and F&B ordering, and face detection with automatic blurring for body-cam footage, both at GOLI Company.\n",
+        "model": "offline deliverable template (no AI key)",
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "latency_ms": 3,
+        "cost_usd": null,
+        "mode": "scripted",
+        "recorded_mode": null
+      }
+    },
+    {
+      "agent": "builder",
+      "type": "handoff",
+      "message": "Handing the draft to the Reviewer"
+    },
+    {
+      "agent": "reviewer",
+      "type": "step_started",
+      "message": "Checking quality and scope"
+    },
+    {
+      "agent": "reviewer",
+      "type": "step_done",
+      "message": "Approved: all sections present and on scope"
+    },
+    {
+      "agent": "reviewer",
+      "type": "span",
+      "message": "reviewer trace",
+      "span": {
+        "span_id": "s_47acf38c",
+        "agent": "reviewer",
+        "started_at": "2026-10-19T05:38:44.010432Z",
+        "ended_at": "2026-10-19T05:38:44.013431Z",
+        "input": "Draft 1 (411 words)",
+        "prompt_template": "reviewer/v1: rule-based checks\n- every required section present: Goal, Call flow, Sample intents, Handoff rules, Cost estimate inputs, Patterns from past work\n- stays on the visitor's business and inputs",
+        "retrieved": [],
+        "output": "Approved: all sections present and on scope",
+        "model": "rule-based reviewer (no model call)",
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "latency_ms": 0,
+        "cost_usd": null,
+        "mode": "local",
+        "recorded_mode": null
+      }
+    },
+    {
+      "agent": "reviewer",
+      "type": "complete",
+      "message": "Mission complete: deliverable ready"
+    }
+  ],
+  "result": {
+    "title": "Scope a voice assistant for my business FAQs",
+    "markdown": "# Voice FAQ assistant scope — Dental clinic\n\n## Goal\nAnswer the most common phone questions for Dental clinic automatically and pass everything else to a person.\n\nNotes from you: Filipino and English callers\n\nPlan followed:\n1. Sketch the call flow from greeting to goodbye\n2. Turn the top questions into intents\n3. Decide when the bot hands the call to a person\n4. List the inputs needed for a cost estimate\n\n## Call flow\n1. **Greeting.** \"Thanks for calling Dental clinic. I'm the automated assistant. How can I help?\"\n2. **Listen and classify** the request into an intent (below), in the caller's language.\n3. **Answer** in one or two short sentences, then ask \"Does that help?\"\n4. **Offer next step:** another question, a booking or message, or a person.\n5. **Close** politely; log the intent and outcome (no audio is kept).\n\n## Sample intents\n| Intent | Example | Action |\n|---|---|---|\n| `faq_opening_hours` | “opening hours” | Answer from the approved FAQ text |\n| `faq_prices` | “prices” | Answer from the approved FAQ text |\n| `faq_booking_an_appointment` | “booking an appointment” | Answer from the approved FAQ text |\n| `human_request` | “Can I talk to someone?” | Hand off immediately |\n| `unknown` | Anything not covered | Apologise once, offer a person or callback |\n\n## Handoff rules\n- The caller asks for a person, or sounds frustrated.\n- Two failed attempts to understand the same question.\n- Anything about payments disputes, emergencies, or complaints.\n- Outside the FAQ scope: take a name and number for a callback.\n\n## Cost estimate inputs\n- Calls per month and average call length (minutes).\n- Share of calls handled without a person (target after pilot).\n- Speech-to-text, language model and text-to-speech price per minute or per character.\n- Telephony minutes and number rental.\n- One-off setup: FAQ writing, voice choice, testing.\n\n## Patterns from past work\n- (experience) Tel. Operator AI Chatbot with F&B Ordering System at GOLI Company (Present). Role: Technical Lead & Lead Full-Stack Developer. Leading the build of AIKO, an AI telephone operator that answers inquiries and takes F&B orders by cha…\n- (skills) Skills — AI & Voice: Agentic AI, Prompt engineering, LLM APIs (Groq, Claude, GPT, DeepSeek, Qwen), Ollama, Whisper, Fish Audio.\n- (profile) What Justin H. Sales is building now: AIKO, an AI telephone operator with voice and F&B ordering, and face detection with automatic blurring for body-cam footage, both at GOLI Company.\n",
+    "template_id": "voice-faq-bot"
+  }
+}

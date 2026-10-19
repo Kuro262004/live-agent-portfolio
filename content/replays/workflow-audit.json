@@ -1,0 +1,202 @@
+{
+  "template_id": "workflow-audit",
+  "inputs": {
+    "process": "Customer emails an order\nStaff manually copies it into a spreadsheet\nManager approves by message\nStaff emails the customer a confirmation"
+  },
+  "events": [
+    {
+      "agent": "planner",
+      "type": "step_started",
+      "message": "Breaking the task into steps"
+    },
+    {
+      "agent": "planner",
+      "type": "step_progress",
+      "message": "4 steps: Restate the process step by step; Score each step for effort and impact; Rank the opportunities; Recommend the first one to automate"
+    },
+    {
+      "agent": "planner",
+      "type": "step_done",
+      "message": "Plan ready"
+    },
+    {
+      "agent": "planner",
+      "type": "span",
+      "message": "planner trace",
+      "span": {
+        "span_id": "s_237b5720",
+        "agent": "planner",
+        "started_at": "2026-10-19T05:38:44.043106Z",
+        "ended_at": "2026-10-19T05:38:44.065193Z",
+        "input": "Task: Find automation opportunities in my process\nDeliverable: Ranked list of steps to automate, effort vs. impact\nVisitor input: {\"process\": \"Customer emails an order\\nStaff manually copies it into a spreadsheet\\nManager approves by message\\nStaff emails the customer a confirmation\"}",
+        "prompt_template": "planner/v1\nsystem: You are the Planner agent. Reply with exactly 4 short imperative steps, one per line, no numbering.\nuser: Task: Find automation opportunities in my process\nDeliverable: Ranked list of steps to automate, effort vs. impact\nVisitor input: {\"process\": \"Customer emails an order\\nStaff manually copies it into a spreadsheet\\nManager approves by message\\nStaff emails the customer a confirmation\"}",
+        "retrieved": [],
+        "output": "Restate the process step by step\nScore each step for effort and impact\nRank the opportunities\nRecommend the first one to automate",
+        "model": "offline plan template (no AI key)",
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "latency_ms": 0,
+        "cost_usd": null,
+        "mode": "scripted",
+        "recorded_mode": null
+      }
+    },
+    {
+      "agent": "planner",
+      "type": "handoff",
+      "message": "Handing the plan to the Researcher"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_started",
+      "message": "Checking past project patterns in the shared brain"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_progress",
+      "message": "“workflow automation agentic AI” → projects/hotel-scan-to-order, profile/1"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_progress",
+      "message": "“replace phone-based manual process” → projects/botpoints"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_progress",
+      "message": "“automation pipelines scheduled jobs” → education/1"
+    },
+    {
+      "agent": "researcher",
+      "type": "step_done",
+      "message": "4 relevant patterns found"
+    },
+    {
+      "agent": "researcher",
+      "type": "span",
+      "message": "researcher trace",
+      "span": {
+        "span_id": "s_87ca025a",
+        "agent": "researcher",
+        "started_at": "2026-10-19T05:38:44.077468Z",
+        "ended_at": "2026-10-19T05:38:44.116978Z",
+        "input": "workflow automation agentic AI\nreplace phone-based manual process\nautomation pipelines scheduled jobs",
+        "prompt_template": "researcher/v1: one shared-brain search per query, top 2 hits with score ≥ 0.2\nqueries:\n- workflow automation agentic AI\n- replace phone-based manual process\n- automation pipelines scheduled jobs",
+        "retrieved": [
+          {
+            "source": "projects/hotel-scan-to-order",
+            "score": 0.75,
+            "excerpt": "Project Hotel Scan-to-Order System (Agentic AI Bootcamp · Bayanaihan AI para sa Bayan). Role: Team Leader & Lead Developer. Goal: Replace phone-based room servi"
+          },
+          {
+            "source": "profile/1",
+            "score": 0.554,
+            "excerpt": "Justin H. Sales — Full-Stack Developer — AI Automation & Agentic AI. IT graduate who builds AI-powered web systems end to end, from database to interface. Curre"
+          },
+          {
+            "source": "projects/botpoints",
+            "score": 0.57,
+            "excerpt": "Project BOTPOINTS — Bottle Recycling Rewards (Capstone Project · with the LGU of Galimuyod). Role: Assistant Developer & Technical Writer. Goal: Encourage prope"
+          },
+          {
+            "source": "education/1",
+            "score": 0.237,
+            "excerpt": "Education: BS Information Technology, Web and Mobile Development, Ilocos Sur Polytechnic State College, Candon Campus, Candon City, Ilocos Sur, May 2026."
+          }
+        ],
+        "output": "4 relevant patterns: projects/hotel-scan-to-order, profile/1, projects/botpoints, education/1",
+        "model": "shared brain (local hashed embeddings + keyword boost)",
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "latency_ms": 7,
+        "cost_usd": null,
+        "mode": "local",
+        "recorded_mode": null
+      }
+    },
+    {
+      "agent": "researcher",
+      "type": "handoff",
+      "message": "Handing findings to the Builder"
+    },
+    {
+      "agent": "builder",
+      "type": "step_started",
+      "message": "Writing the deliverable"
+    },
+    {
+      "agent": "builder",
+      "type": "step_done",
+      "message": "Draft 1 written (359 words)"
+    },
+    {
+      "agent": "builder",
+      "type": "span",
+      "message": "builder trace",
+      "span": {
+        "span_id": "s_3de3f7f0",
+        "agent": "builder",
+        "started_at": "2026-10-19T05:38:44.126978Z",
+        "ended_at": "2026-10-19T05:38:44.131978Z",
+        "input": "Task: Find automation opportunities in my process\nVisitor input: {\"process\": \"Customer emails an order\\nStaff manually copies it into a spreadsheet\\nManager approves by message\\nStaff emails the customer a confirmation\"}\nPlan:\n- Restate the process step by step\n- Score each step for effort and impact\n- Rank the opportunities\n- Recommend the first one to automate\nFindings from Justin's past work:\n- Project Hotel Scan-to-Order System (Agentic AI Bootcamp · Bayanaihan AI para sa Bayan). Role: Team Leader & Lead Developer. Goal: Replace phone-based room service. Result: Guests scan a QR code on the room TV to order and track their bill, with full billing transparency. Tools: Claude, Qwen, Qoder, VS Code, APIs, Workflow automation.\n- Justin H. Sales — Full-Stack Developer — AI Automation & Agentic AI. IT graduate who builds AI-powered web systems end to end, from database to interface. Currently technical lead at GOLI Company on AIKO, an AI telephone operator with voice and F&B ordering, and building face detection with blurring for body-cam footage. Trained in agentic AI through the Bayanaihan AI para sa Bayan program.\n- Project BOTPOINTS — Bottle Recycling Rewards (Capstone Project · with the LGU of Galimuyod). Role: Assistant Developer & Technical Writer. Goal: Encourage proper plastic-bottle disposal. Result: IoT system rewarding disposal with redeemable QR-based points. Tools: JavaScript, PHP, MySQL, Bootstrap, IoT.\n- Education: BS Information Technology, Web and Mobile Development, Ilocos Sur Polytechnic State College, Candon Campus, Candon City, Ilocos Sur, May 2026.",
+        "prompt_template": "builder/v1\nsystem: You are the Builder agent for Justin H. Sales's portfolio demo. Write a practical, concrete deliverable in Markdown for the visitor's business. Use ONLY these H2 headings, in order: Goal, Process as understood, Ranked opportunities, Suggested first step, Patterns from past work. Under 'Patterns from past work' cite only the supplied findings. Never invent clients, metrics or results. Be concise.\nuser: Task: Find automation opportunities in my process\nVisitor input: {\"process\": \"Customer emails an order\\nStaff manually copies it into a spreadsheet\\nManager approves by message\\nStaff emails the customer a confirmation\"}\nPlan:\n- Restate the process step by step\n- Score each step for effort and impact\n- Rank the opportunities\n- Recommend the first one to automate\nFindings from Justin's past work:\n- Project Hotel Scan-to-Order System (Agentic AI Bootcamp · Bayanaihan AI para sa Bayan). Role: Team Leader & Lead Developer. Goal: Replace phone-based room service. Result: Guests scan a QR code on the room TV to order and track their bill, with full billing transparency. Tools: Claude, Qwen, Qoder, VS Code, APIs, Workflow automation.\n- Justin H. Sales — Full-Stack Developer — AI Automation & Agentic AI. IT graduate who builds AI-powered web systems end to end, from database to interface. Currently technical lead at GOLI Company on AIKO, an AI telephone operator with voice and F&B ordering, and building face detection with blurring for body-cam footage. Trained in agentic AI through the Bayanaihan AI para sa Bayan program.\n- Project BOTPOINTS — Bottle Recycling Rewards (Capstone Project · with the LGU of Galimuyod). Role: Assistant Developer & Technical Writer. Goal: Encourage proper plastic-bottle disposal. Result: IoT system rewarding disposal with redeemable QR-based points. Tools: JavaScript, PHP, MySQL, Bootstrap, IoT.\n- Education: BS Information Technology, Web and Mobile Development, Ilocos Sur Polytechnic State College, Candon Campus, Candon City, Ilocos Sur, May 2026.",
+        "retrieved": [],
+        "output": "# Workflow audit\n\n## Goal\nFind which steps of your process are worth automating first, judged by effort against impact.\n\nPlan followed:\n1. Restate the process step by step\n2. Score each step for effort and impact\n3. Rank the opportunities\n4. Recommend the first one to automate\n\n## Process as understood\n1. Customer emails an order\n2. Staff manually copies it into a spreadsheet\n3. Manager approves by message\n4. Staff emails the customer a confirmation\n\n## Ranked opportunities\n| Rank | Step | Impact | Effort |\n|---|---|---|---|\n| 1 | Staff manually copies it into a spreadsheet | High | Low |\n| 2 | Customer emails an order | High | Medium |\n| 3 | Staff emails the customer a confirmation | Medium | Medium |\n| 4 | Manager approves by message | Low | Medium |\n\nScores come from keywords in your description (manual copying, phone work and spreadsheets raise impact; approvals and judgment raise effort). Treat them as a first pass to confirm with the people who do the work.\n\n## Suggested first step\nStart with “Staff manually copies it into a spreadsheet”: it has the best impact for the effort. Automate it for one week in parallel with the manual way, compare results, then move down the list.\n\n## Patterns from past work\n- (projects) Project Hotel Scan-to-Order System (Agentic AI Bootcamp · Bayanaihan AI para sa Bayan). Role: Team Leader & Lead Developer. Goal: Replace phone-based room service. Result: Guests scan a QR code on the room TV to order and track t…\n- (profile) Justin H. Sales — Full-Stack Developer — AI Automation & Agentic AI. IT graduate who builds AI-powered web systems end to end, from database to interface. Currently technical lead at GOLI Company on AIKO, an AI telephone operator…\n- (projects) Project BOTPOINTS — Bottle Recycling Rewards (Capstone Project · with the LGU of Galimuyod). Role: Assistant Developer & Technical Writer. Goal: Encourage proper plastic-bottle disposal. Result: IoT system rewarding disposal with…\n- (education) Education: BS Information Technology, Web and Mobile Development, Ilocos Sur Polytechnic State College, Candon Campus, Candon City, Ilocos Sur, May 2026.\n",
+        "model": "offline deliverable template (no AI key)",
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "latency_ms": 5,
+        "cost_usd": null,
+        "mode": "scripted",
+        "recorded_mode": null
+      }
+    },
+    {
+      "agent": "builder",
+      "type": "handoff",
+      "message": "Handing the draft to the Reviewer"
+    },
+    {
+      "agent": "reviewer",
+      "type": "step_started",
+      "message": "Checking quality and scope"
+    },
+    {
+      "agent": "reviewer",
+      "type": "step_done",
+      "message": "Approved: all sections present and on scope"
+    },
+    {
+      "agent": "reviewer",
+      "type": "span",
+      "message": "reviewer trace",
+      "span": {
+        "span_id": "s_ed522c24",
+        "agent": "reviewer",
+        "started_at": "2026-10-19T05:38:44.157097Z",
+        "ended_at": "2026-10-19T05:38:44.160098Z",
+        "input": "Draft 1 (359 words)",
+        "prompt_template": "reviewer/v1: rule-based checks\n- every required section present: Goal, Process as understood, Ranked opportunities, Suggested first step, Patterns from past work\n- stays on the visitor's business and inputs",
+        "retrieved": [],
+        "output": "Approved: all sections present and on scope",
+        "model": "rule-based reviewer (no model call)",
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "latency_ms": 0,
+        "cost_usd": null,
+        "mode": "local",
+        "recorded_mode": null
+      }
+    },
+    {
+      "agent": "reviewer",
+      "type": "complete",
+      "message": "Mission complete: deliverable ready"
+    }
+  ],
+  "result": {
+    "title": "Find automation opportunities in my process",
+    "markdown": "# Workflow audit\n\n## Goal\nFind which steps of your process are worth automating first, judged by effort against impact.\n\nPlan followed:\n1. Restate the process step by step\n2. Score each step for effort and impact\n3. Rank the opportunities\n4. Recommend the first one to automate\n\n## Process as understood\n1. Customer emails an order\n2. Staff manually copies it into a spreadsheet\n3. Manager approves by message\n4. Staff emails the customer a confirmation\n\n## Ranked opportunities\n| Rank | Step | Impact | Effort |\n|---|---|---|---|\n| 1 | Staff manually copies it into a spreadsheet | High | Low |\n| 2 | Customer emails an order | High | Medium |\n| 3 | Staff emails the customer a confirmation | Medium | Medium |\n| 4 | Manager approves by message | Low | Medium |\n\nScores come from keywords in your description (manual copying, phone work and spreadsheets raise impact; approvals and judgment raise effort). Treat them as a first pass to confirm with the people who do the work.\n\n## Suggested first step\nStart with “Staff manually copies it into a spreadsheet”: it has the best impact for the effort. Automate it for one week in parallel with the manual way, compare results, then move down the list.\n\n## Patterns from past work\n- (projects) Project Hotel Scan-to-Order System (Agentic AI Bootcamp · Bayanaihan AI para sa Bayan). Role: Team Leader & Lead Developer. Goal: Replace phone-based room service. Result: Guests scan a QR code on the room TV to order and track t…\n- (profile) Justin H. Sales — Full-Stack Developer — AI Automation & Agentic AI. IT graduate who builds AI-powered web systems end to end, from database to interface. Currently technical lead at GOLI Company on AIKO, an AI telephone operator…\n- (projects) Project BOTPOINTS — Bottle Recycling Rewards (Capstone Project · with the LGU of Galimuyod). Role: Assistant Developer & Technical Writer. Goal: Encourage proper plastic-bottle disposal. Result: IoT system rewarding disposal with…\n- (education) Education: BS Information Technology, Web and Mobile Development, Ilocos Sur Polytechnic State College, Candon Campus, Candon City, Ilocos Sur, May 2026.\n",
+    "template_id": "workflow-audit"
+  }
+}

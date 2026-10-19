@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: portfolio-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+      - key: EVOLVE_SECRET
+        generateValue: true
+      - key: GROQ_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: FISH_AUDIO_API_KEY
+        sync: false
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: GITHUB_USERNAME
+        value: Kuro262004
+      - key: CAPTCHA_SECRET
+        sync: false
+      - key: BOOKING_URL
+        sync: false
+      - key: DAILY_TOKEN_LIMIT
+        value: "200000"
+      - key: DAILY_VOICE_SECONDS_LIMIT
+        value: "3600"

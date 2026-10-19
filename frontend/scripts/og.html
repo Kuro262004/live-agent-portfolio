@@ -1,0 +1,50 @@
+<!doctype html>
+<!-- Source for public/og.png (1200x630) and the app icons. Render with any headless browser at 1200x630. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Inter:wght@400&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1200px; height: 630px; background: #0c1428; color: #f8f1e1; font-family: Inter, system-ui, "Segoe UI", Roboto, sans-serif; position: relative; overflow: hidden; }
+  .glow { position:absolute; inset:0; background: radial-gradient(60rem 30rem at 12% -10%, rgba(255,201,40,.12), transparent 60%), radial-gradient(40rem 26rem at 100% 100%, rgba(255,99,72,.10), transparent 60%); }
+  .grid { position:absolute; inset:0; background-image: radial-gradient(#283964 1.4px, transparent 1.6px); background-size: 30px 30px; opacity:.6; }
+  .wrap { position:absolute; inset:0; padding: 64px 72px; display:flex; flex-direction:column; justify-content:space-between; }
+  .brand { font: 700 24px "JetBrains Mono", ui-monospace, Menlo, monospace; color:#a0a8be; letter-spacing:.02em; }
+  .sign { display:inline-block; padding: 4px 12px; margin-right: 10px; border-radius: 8px; background:#ffc928; color:#0e1834; }
+  h1 { font: 700 100px/1.02 "Bricolage Grotesque", Inter, system-ui, sans-serif; letter-spacing: -.035em; }
+  .sub { margin-top: 18px; font-size: 34px; color: #d6cfbd; max-width: 900px; line-height: 1.25; }
+  .row { display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+  .chip { font: 700 22px "JetBrains Mono", ui-monospace, Menlo, monospace; padding: 12px 22px; border-radius: 14px; border: 2px solid; }
+  .c1 { color:#ffc928; border-color:rgba(255,201,40,.5); background:rgba(255,201,40,.1); }
+  .c2 { color:#ff6348; border-color:rgba(255,99,72,.5); background:rgba(255,99,72,.1); }
+  .c3 { color:#4ad982; border-color:rgba(74,217,130,.5); background:rgba(74,217,130,.1); }
+  .graph { position:absolute; right: 72px; top: 70px; display:flex; gap:10px; align-items:center; }
+  .node { width: 18px; height: 18px; border-radius: 50%; }
+  .edge { width: 34px; height: 3px; background: #3c5284; }
+  .stripe { position:absolute; left:0; right:0; bottom:0; height: 12px; background: linear-gradient(90deg, #ffc928 0 25%, #ff6348 25% 50%, #5cb2ff 50% 75%, #4ad982 75% 100%); }
+</style>
+</head>
+<body>
+  <div class="glow"></div><div class="grid"></div>
+  <div class="graph">
+    <div class="node" style="background:#5cb2ff"></div><div class="edge"></div>
+    <div class="node" style="background:#ffc928"></div><div class="edge"></div>
+    <div class="node" style="background:#ff6348"></div><div class="edge"></div>
+    <div class="node" style="background:#4ad982"></div>
+  </div>
+  <div class="wrap">
+    <div class="brand"><span class="sign">JHS</span>/mission-control</div>
+    <div>
+      <h1>Justin H. Sales</h1>
+      <p class="sub">Full-Stack Developer — AI Automation &amp; Agentic AI</p>
+    </div>
+    <div class="row">
+      <span class="chip c1">Call my AI</span>
+      <span class="chip c2">Watch my agents work</span>
+      <span class="chip c3">Plain view for recruiters</span>
+    </div>
+  </div>
+  <div class="stripe"></div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+*.db
+.pytest_cache/
+*.log
+# generated at build time by `npm run plain`
+frontend/public/plain/
+frontend/public/sitemap.xml

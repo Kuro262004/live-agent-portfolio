@@ -1,0 +1,508 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Manila Transit, quiet: night-route navy (dark) or warm paper (light), one sun-yellow accent.
+   The four jeepney colours belong to the agents and only appear in small doses. */
+:root {
+  color-scheme: dark;
+  /* one colour per agent (space-separated channels so Tailwind can apply opacity) */
+  --planner: 128 174 232;
+  --researcher: 246 196 58;
+  --builder: 238 128 102;
+  --reviewer: 112 200 152;
+  --brain: 178 158 236;
+  /* three surface levels: page, cards, raised (dialogs, deliverable) */
+  --bg: 13 19 33;
+  --panel: 20 28 46;
+  --panel-2: 28 38 60;
+  --line: 38 49 74;
+  --line-2: 54 68 98;
+  --mute: 148 156 176;
+  --ink: 240 236 226;
+  --rule: 240 236 226;
+  --alert: 240 110 130;
+  --shine: 255 255 255;
+  /* the one signboard colour and its navy lettering, identical in both themes */
+  --sun: 246 196 58;
+  --on-sun: 17 24 39;
+  /* soft elevation */
+  --drop: 0 0 0;
+  /* one radius per kind of thing */
+  --r-card: 14px;
+  --r-btn: 10px;
+}
+
+/* the page colour lives on <html> only: a background on <body> would paint over the fixed 3D world and backdrop,
+   which sit behind the page at a negative z-index */
+html {
+  background: rgb(var(--bg));
+}
+
+body {
+  margin: 0;
+  /* full-bleed rows (the project rail) are 100vw wide, which includes the scrollbar; never let that scroll sideways */
+  overflow-x: clip;
+  color: rgb(var(--ink));
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(60rem 30rem at 10% -10%, rgb(var(--sun) / 0.05), transparent 60%);
+}
+
+h1, h2, h3 {
+  font-family: "Bricolage Grotesque", Inter, system-ui, sans-serif;
+  font-weight: 700;
+  font-optical-sizing: auto;
+  letter-spacing: -0.025em;
+}
+
+/* ---------- transit details, used sparingly ---------- */
+
+/* the four-colour jeepney stripe, one band per agent: a thin line under the top bar */
+.route-stripe {
+  background: linear-gradient(90deg,
+    rgb(var(--sun)) 0 25%, rgb(var(--builder)) 25% 50%, rgb(var(--planner)) 50% 75%, rgb(var(--reviewer)) 75% 100%);
+}
+
+/* the only filled signboard on the page: the JHS plate in the top bar */
+.plate {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: rgb(var(--sun));
+  color: rgb(var(--on-sun));
+}
+
+/* section kicker: a small sun-yellow route marker before quiet lettering */
+.route-sign {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgb(var(--researcher));
+  font-weight: 600;
+}
+.route-sign::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: rgb(var(--sun));
+}
+
+/* dashed lane marking */
+.route-dash {
+  height: 0;
+  border-top: 1px dashed rgb(var(--rule) / 0.14);
+}
+
+/* cards: a small lift on hover (their surface comes from .glass) */
+.sticker {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+@media (hover: hover) {
+  .sticker:hover {
+    transform: translateY(-2px);
+    border-color: rgb(var(--rule) / 0.16);
+  }
+}
+
+/* ---------- depth ---------- */
+
+/* the still backdrop for lite mode: the shader's colours as three soft pools */
+.backdrop-lite {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 15% 20%, rgb(var(--sun) / 0.07), transparent 70%),
+    radial-gradient(50% 45% at 85% 70%, rgb(var(--builder) / 0.05), transparent 70%),
+    radial-gradient(70% 60% at 50% 110%, rgb(var(--planner) / 0.05), transparent 70%),
+    rgb(var(--bg));
+}
+
+/* frosted panels: the backdrop shows through, softly */
+/* panels over the moving 3D world: mostly solid with a light blur (a heavy blur over a live canvas is what stutters) */
+.glass {
+  background: rgb(var(--panel) / 0.8);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgb(var(--rule) / 0.08);
+  box-shadow: inset 0 1px 0 rgb(var(--rule) / 0.06), 0 20px 60px -20px rgb(0 0 0 / 0.55);
+}
+.glass[data-depth="2"] { box-shadow: inset 0 1px 0 rgb(var(--rule) / 0.08), 0 30px 80px -24px rgb(0 0 0 / 0.65); }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass { background: rgb(var(--panel)); }
+}
+
+/* film grain: a whisper of texture, never in the way */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* faint grid behind Mission Control */
+.mission-bg {
+  position: relative;
+}
+.mission-bg::before {
+  content: "";
+  position: absolute;
+  inset: -1.5rem -1rem;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(var(--rule) / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--rule) / 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 80%);
+  mask-image: radial-gradient(ellipse at center, #000 40%, transparent 80%);
+}
+
+/* HUD corners: reserved for Mission Control, the deliverable and the call panel */
+.hud {
+  position: relative;
+}
+.hud::before,
+.hud::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgb(var(--sun) / 0.55);
+  pointer-events: none;
+}
+.hud::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1.5px solid;
+  border-left: 1.5px solid;
+  border-top-left-radius: 6px;
+}
+.hud::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1.5px solid;
+  border-right: 1.5px solid;
+  border-bottom-right-radius: 6px;
+}
+
+::selection {
+  background: rgb(var(--researcher) / 0.3);
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--researcher));
+  outline-offset: 2px;
+}
+
+/* React Flow on a dark board */
+.react-flow {
+  background: transparent !important;
+}
+.react-flow__edge-path {
+  transition: stroke 0.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+.react-flow__attribution {
+  background: transparent !important;
+  font-size: 9px;
+  opacity: 0.55;
+}
+.react-flow__attribution a {
+  color: rgb(var(--mute));
+}
+
+/* ---------- animation layer (every effect has a reduced-motion rule at the bottom) ---------- */
+
+/* cross-document fade between the interactive site and the plain view (Chrome/Edge/Safari; ignored elsewhere) */
+@view-transition {
+  navigation: auto;
+}
+
+/* Call button: sonar rings, like an incoming call */
+.sonar::before,
+.sonar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid rgb(var(--researcher) / 0.5);
+  pointer-events: none;
+  animation: sonar 2.5s ease-out infinite;
+}
+.sonar::after {
+  animation-delay: 1.25s;
+}
+.sonar[data-paused="true"]::before,
+.sonar[data-paused="true"]::after { animation-play-state: paused; }
+@keyframes sonar {
+  from { transform: scale(1); opacity: 0.6; }
+  to { transform: scale(1.6); opacity: 0; }
+}
+
+/* five-bar sound wave shown on hover */
+.wave span {
+  width: 2px;
+  height: 100%;
+  background: currentColor;
+  border-radius: 1px;
+  transform-origin: bottom;
+  animation: wave 0.7s ease-in-out infinite;
+}
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.25); }
+  50% { transform: scaleY(1); }
+}
+
+/* agent node states */
+@property --a {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes spin { to { --a: 360deg; } }
+@keyframes breathe { 50% { opacity: 0.75; } }
+@keyframes flash-amber {
+  0% { box-shadow: 0 0 0 0 rgb(var(--builder) / 0.9); }
+  100% { box-shadow: 0 0 0 14px rgb(var(--builder) / 0); }
+}
+.node-idle { animation: breathe 3s ease-in-out infinite; }
+.node-thinking { position: relative; }
+.node-thinking::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(from var(--a), transparent 0 70%, var(--ring, rgb(var(--researcher))) 85%, transparent);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: spin 1.6s linear infinite;
+  pointer-events: none;
+}
+.node-revision { animation: flash-amber 0.7s ease-out 1; }
+.shimmer-text {
+  background: linear-gradient(90deg, currentColor 40%, rgb(var(--shine)) 50%, currentColor 60%) 0 0 / 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 1.8s linear infinite;
+}
+@keyframes shimmer { from { background-position: 150% 0; } to { background-position: -100% 0; } }
+
+/* mission progress bar */
+.seg-active {
+  background: linear-gradient(90deg, rgb(var(--rule) / 0.05), rgb(var(--rule) / 0.55), rgb(var(--rule) / 0.05)) 0 0 / 200% 100%, var(--seg);
+  background-blend-mode: overlay;
+  animation: shimmer 1.2s linear infinite;
+}
+
+/* typed log cursor and chat typing dots */
+.cursor-block { animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.typing-dots span {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin: 0 1.5px;
+  border-radius: 9999px;
+  background: rgb(var(--mute));
+  animation: bounce-dot 1.1s ease-in-out infinite;
+}
+.typing-dots span:nth-child(2) { animation-delay: 0.15s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes bounce-dot { 0%, 80%, 100% { transform: translateY(0); opacity: 0.5; } 40% { transform: translateY(-4px); opacity: 1; } }
+
+/* deliverable printing: one scanning line */
+.print-scan::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgb(var(--reviewer)), transparent);
+  box-shadow: 0 0 12px rgb(var(--reviewer));
+  animation: print-scan 1.6s ease-in-out 1 forwards;
+  pointer-events: none;
+}
+@keyframes print-scan { from { transform: translateY(0); opacity: 1; } to { transform: translateY(var(--scan-h, 420px)); opacity: 0; } }
+
+/* cursor spotlight on cards (fine pointers only) */
+@media (hover: hover) and (pointer: fine) {
+  .spot {
+    background-image: radial-gradient(400px circle at var(--x, -999px) var(--y, -999px), rgb(var(--researcher) / 0.08), transparent 60%);
+  }
+}
+
+/* a slow light travelling round the border of in-progress cards */
+@property --b {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes beam { to { --b: 360deg; } }
+.beam { position: relative; }
+.beam::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--b), transparent 0 80%, rgb(var(--reviewer)) 92%, transparent);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: beam 4s linear infinite;
+  pointer-events: none;
+}
+.beam[data-paused="true"]::before,
+.node-thinking[data-paused="true"]::before { animation-play-state: paused; }
+
+/* voice orb */
+.orb {
+  --level: 0;
+  transform: scale(calc(1 + var(--level) * 0.35));
+  transition: transform 0.08s linear;
+  background: radial-gradient(circle at 35% 30%, #fff3c4, rgb(var(--sun)) 45%, rgb(var(--builder)) 100%);
+  box-shadow: 0 0 calc(14px + var(--level) * 28px) rgb(var(--sun) / 0.5);
+}
+.orb-thinking {
+  background: conic-gradient(from var(--a), rgb(var(--sun)), rgb(var(--builder)), rgb(var(--planner)), rgb(var(--reviewer)), rgb(var(--sun)));
+  animation: spin 2.4s linear infinite;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sonar::before, .sonar::after, .node-thinking::before, .beam::before,
+  .shimmer-text, .seg-active, .cursor-block, .print-scan::after, .wave span { animation: none !important; }
+  .node-idle, .node-revision, .orb-thinking { animation: none !important; }
+  .print-scan::after { display: none; }
+  .orb { transition: none; transform: none; }
+}
+
+/* the deliverable reads as a document: headings in the planner colour, thin rules */
+.paper h1, .paper h2, .paper h3 { color: rgb(var(--planner)); }
+.paper hr { border-color: rgb(var(--rule) / 0.1); }
+
+/* ---------- light mode: the day route, warm paper and navy ink ----------
+   Agent colours are deepened into inks so each passes WCAG AA (4.5:1) on the paper.
+   The signboard yellow (--sun) stays bright, always with navy lettering. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --planner: 36 88 160;
+  --researcher: 146 96 0;
+  --builder: 176 56 34;
+  --reviewer: 30 112 70;
+  --brain: 104 70 180;
+  --bg: 247 243 235;
+  --panel: 253 251 246;
+  --panel-2: 255 255 255;
+  --line: 228 220 204;
+  --line-2: 204 194 174;
+  --mute: 86 90 104;
+  --ink: 17 24 39;
+  --rule: 17 24 39;
+  --alert: 168 30 60;
+  --shine: 17 24 39;
+  --drop: 17 24 39;
+}
+/* no glow and no grain on paper: hairlines and soft shadows instead */
+:root[data-theme="light"] body::after,
+:root[data-theme="light"] .constellation { display: none; }
+:root[data-theme="light"] .glow-cta { box-shadow: 0 1px 2px rgb(17 24 39 / 0.18); }
+:root[data-theme="light"] .glow-card { box-shadow: 0 0 0 2px rgb(var(--sun)), 0 10px 30px -18px rgb(17 24 39 / 0.4); }
+:root[data-theme="light"] .glass {
+  background: rgb(var(--panel) / 0.9);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-color: rgb(var(--rule) / 0.1);
+  box-shadow: 0 1px 2px rgb(17 24 39 / 0.05), 0 12px 32px -20px rgb(17 24 39 / 0.28);
+}
+:root[data-theme="light"] .orb { box-shadow: 0 1px 3px rgb(17 24 39 / 0.3); }
+:root[data-theme="light"] .sonar::before,
+:root[data-theme="light"] .sonar::after { border-color: rgb(var(--researcher) / 0.45); }
+:root[data-theme="light"] .shadow-2xl { box-shadow: 0 10px 30px -10px rgb(17 24 39 / 0.3); }
+
+.glow-cta { box-shadow: 0 8px 24px -12px rgb(var(--sun) / 0.7); }
+.glow-card { box-shadow: 0 0 0 1px rgb(var(--sun) / 0.7), 0 12px 32px -18px rgb(var(--sun) / 0.5); }
+
+@media (prefers-reduced-motion: reduce) {
+  .sticker, .sticker:hover { transition: none; transform: none; }
+}
+
+/* ---------- concept features ---------- */
+
+/* split-flap letters */
+.flap { box-shadow: inset 0 -1px 0 rgb(0 0 0 / 0.45), inset 0 1px 0 rgb(var(--rule) / 0.05); }
+
+/* thermal receipt: torn bottom edge (the receipt is paper-white in every theme) */
+.receipt {
+  -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - 8px) no-repeat, conic-gradient(from 135deg at bottom, #0000 90deg, #000 0) bottom / 16px 8px repeat-x;
+  mask: linear-gradient(#000 0 0) top / 100% calc(100% - 8px) no-repeat, conic-gradient(from 135deg at bottom, #0000 90deg, #000 0) bottom / 16px 8px repeat-x;
+}
+
+/* passport ink stamps */
+.stamp {
+  display: inline-grid;
+  place-items: center;
+  max-width: 13rem;
+  padding: 12px 16px;
+  border: 2.5px solid currentColor;
+  text-align: center;
+  font: 600 11px/1.35 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transform: rotate(var(--r, -6deg));
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence baseFrequency='.8'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 1.6'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23g)'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence baseFrequency='.8'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 1.6'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+.stamp-ring { border-style: double; border-width: 5px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .stamp { transition: none; }
+}
+
+/* ask-to-navigate: the cards an answer points at pulse in their section's agent colour for ~2 s */
+.nav-highlight {
+  --nav: var(--sun);
+  outline: 2px solid rgb(var(--nav));
+  outline-offset: 4px;
+  animation: nav-pulse 0.7s ease-in-out 3;
+}
+[data-agent="planner"] .nav-highlight { --nav: var(--planner); }
+[data-agent="researcher"] .nav-highlight { --nav: var(--researcher); }
+[data-agent="builder"] .nav-highlight { --nav: var(--builder); }
+[data-agent="reviewer"] .nav-highlight { --nav: var(--reviewer); }
+[data-agent="brain"] .nav-highlight { --nav: var(--brain); }
+@keyframes nav-pulse {
+  50% { outline-offset: 8px; outline-color: rgb(var(--nav) / 0.35); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-highlight { animation: none; }
+}
