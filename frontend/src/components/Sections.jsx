@@ -402,10 +402,10 @@ export function Contact() {
   const abs = (u) => (/^https?:/.test(u) ? u : `https://${u}`);
   const rows = [
     [Mail, "Email", c.email, `mailto:${c.email}`],
-    [Phone, "Phone", c.phone, `tel:${c.phone.replace(/\s/g, "")}`],
+    c.phone && [Phone, "Phone", c.phone, `tel:${c.phone.replace(/\s/g, "")}`],
     [Linkedin, "LinkedIn", c.linkedin.replace(/^https?:\/\//, ""), abs(c.linkedin)],
     [Github, "GitHub", c.github.replace(/^https?:\/\//, ""), abs(c.github)],
-  ];
+  ].filter(Boolean);
   return (
     <Section id="contact" agent="researcher" kicker="08 · contact" meta="open" title="Talk to the real Justin">
       <div className="grid gap-5 md:grid-cols-2">

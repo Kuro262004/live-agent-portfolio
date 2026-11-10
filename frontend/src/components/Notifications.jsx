@@ -25,6 +25,8 @@ const markSeen = () => {
 /**
  * First visit only: a few small notices built from the real changelog (no made-up activity), one at a time,
  * bottom-left on desktop (clear of the hero picture and the call panel) and above the action bar on phones.
+ * On phones the notice would sit on top of the hero's "Call my AI" / "Give my agents a task" buttons, so it
+ * waits until the visitor has scrolled past the hero.
  */
 export default function Notifications() {
   const { data } = usePortfolio();
@@ -43,10 +45,26 @@ export default function Notifications() {
   // start the queue a moment after the boot intro
   useEffect(() => {
     if (!bootDone || prefersReducedMotion() || seen() || items.length === 0) return undefined;
-    markSeen();
     const phone = window.matchMedia("(max-width: 639px)").matches;
-    const t = setTimeout(() => setQueue(items.slice(0, phone ? 1 : 3)), 1500);
-    return () => clearTimeout(t);
+    let t;
+    const start = () => {
+      markSeen();
+      t = setTimeout(() => setQueue(items.slice(0, phone ? 1 : 3)), 1500);
+    };
+    if (!phone) {
+      start();
+      return () => clearTimeout(t);
+    }
+    const onScroll = () => {
+      if (window.scrollY < window.innerHeight) return;
+      window.removeEventListener("scroll", onScroll);
+      start();
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      clearTimeout(t);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bootDone, key]);
 

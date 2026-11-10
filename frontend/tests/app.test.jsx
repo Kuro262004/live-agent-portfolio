@@ -58,7 +58,7 @@ describe("content sections (bundled content when the API is unreachable)", () =>
     );
     expect(screen.getAllByText(/Ilocos Sur Polytechnic State College/).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: "justinsales76@gmail.com" })).toHaveAttribute("href", "mailto:justinsales76@gmail.com");
-    expect(screen.getByRole("link", { name: "+63 968 558 4849" })).toBeInTheDocument();
+    expect(screen.queryByText(/^> phone:/)).not.toBeInTheDocument(); // the phone number is kept off the public site
   });
 });
 
