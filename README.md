@@ -78,7 +78,7 @@ The seed only fills an empty database. To re-seed, delete `backend/portfolio.db`
 Nothing here needs code changes, only keys. Put them in `backend/.env` locally and in your backend host's environment variables in production. **Never paste a key into a chat, a commit or the frontend.**
 
 1. **Models.** `GROQ_API_KEY` (fast chat, agent steps and Whisper speech-to-text) and `ANTHROPIC_API_KEY` (long deliverables). `GET /api/status` then reports `llm: true`, the "Scripted demo" label disappears and the boot line and footer say "live".
-2. **Voice.** `FISH_AUDIO_API_KEY` (and optionally `FISH_AUDIO_VOICE_ID`) turns on server text-to-speech; with the Groq key the call then uses Whisper + Fish Audio instead of the browser's speech.
+2. **Voice.** `FISH_AUDIO_API_KEY` (and optionally `FISH_AUDIO_VOICE_ID` for a voice such as your own clone, and `FISH_AUDIO_MODEL`, e.g. `s2.1-pro-free` on Fish's free developer tier) turns on server text-to-speech: the AI speaks with Fish Audio even before Groq is added; with the Groq key the call then uses Whisper + Fish Audio instead of the browser's speech.
 3. **CAPTCHA (do this before step 1 goes public).** Create a Cloudflare Turnstile widget; put the secret in `CAPTCHA_SECRET` (backend) and the site key in `VITE_TURNSTILE_SITE_KEY` (Vercel). In production the backend **refuses to start** if any AI key is set without `CAPTCHA_SECRET`, or if `CORS_ORIGINS` still points at localhost.
 4. **Check it worked:** `cd backend; .\.venv\Scripts\python -m app.scripts.check_services` tests each key with a tiny request and prints ✓/✗ (never the keys). The Fish Audio request follows its public docs and hasn't been exercised by the author.
 5. **Re-record the fallback replays** with real keys: `python -m app.scripts.record_replays`.

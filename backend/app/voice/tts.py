@@ -12,6 +12,14 @@ def available() -> bool:
     return bool(settings.fish_audio_api_key)
 
 
+def headers() -> dict[str, str]:
+    """Auth header, plus the `model` header when FISH_AUDIO_MODEL is set (otherwise Fish picks its default)."""
+    h = {"Authorization": f"Bearer {settings.fish_audio_api_key}"}
+    if settings.fish_audio_model:
+        h["model"] = settings.fish_audio_model
+    return h
+
+
 def split_sentences(text: str) -> list[str]:
     parts = re.split(r"(?<=[.!?])\s+", text.strip())
     return [p for p in parts if p]
@@ -27,7 +35,7 @@ async def synth_stream(text: str) -> AsyncIterator[bytes]:
     try:
         async with httpx.AsyncClient(timeout=30) as client:
             async with client.stream("POST", URL, json=body,
-                                     headers={"Authorization": f"Bearer {settings.fish_audio_api_key}"}) as r:
+                                     headers=headers()) as r:
                 r.raise_for_status()
                 async for chunk in r.aiter_bytes():
                     if chunk:
