@@ -43,8 +43,11 @@ async def _fish(client: httpx.AsyncClient) -> str:
     body = {"text": "ok", "format": "mp3"}
     if settings.fish_audio_voice_id:
         body["reference_id"] = settings.fish_audio_voice_id
-    r = await client.post("https://api.fish.audio/v1/tts", headers={"Authorization": f"Bearer {settings.fish_audio_api_key}"}, json=body)
-    return "ok" if r.status_code == 200 and r.content else f"HTTP {r.status_code}"
+    from ..voice.tts import headers
+
+    r = await client.post("https://api.fish.audio/v1/tts", headers=headers(), json=body)
+    model = f" (model {settings.fish_audio_model})" if settings.fish_audio_model else ""
+    return "ok" if r.status_code == 200 and r.content else f"HTTP {r.status_code}{model}"
 
 
 async def _github(client: httpx.AsyncClient) -> str:

@@ -190,3 +190,42 @@ def test_voice_pipeline_with_mocked_services_and_barge_in(client, monkeypatch):
         assert next_of(ws, "interrupt")
         ws.send_json({"type": "end"})
         assert next_of(ws, "ended")
+
+def test_fish_tts_request_shape(monkeypatch):
+    """The request sent to Fish Audio: auth, optional voice and model, MP3 streamed back. No network is used."""
+    import asyncio
+
+    import httpx
+
+    from app.voice import tts
+
+    seen = {}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen["url"] = str(request.url)
+        seen["headers"] = dict(request.headers)
+        seen["body"] = request.read()
+        return httpx.Response(200, content=b"ID3fake-mp3")
+
+    real_client = httpx.AsyncClient
+    monkeypatch.setattr(tts.httpx, "AsyncClient", lambda **kw: real_client(transport=httpx.MockTransport(handler), **kw))
+    monkeypatch.setattr(settings, "fish_audio_api_key", "test-key")
+
+    async def collect() -> bytes:
+        return b"".join([c async for c in tts.synth_stream("Hello there.")])
+
+    # defaults: no voice id, no model header (Fish picks its default model and voice)
+    monkeypatch.setattr(settings, "fish_audio_voice_id", "")
+    monkeypatch.setattr(settings, "fish_audio_model", "")
+    assert asyncio.run(collect()) == b"ID3fake-mp3"
+    assert seen["url"] == "https://api.fish.audio/v1/tts"
+    assert seen["headers"]["authorization"] == "Bearer test-key"
+    assert "model" not in seen["headers"]
+    assert b'"reference_id"' not in seen["body"] and b'"format":"mp3"' in seen["body"].replace(b" ", b"")
+
+    # a cloned voice and the free-tier model
+    monkeypatch.setattr(settings, "fish_audio_voice_id", "voice-123")
+    monkeypatch.setattr(settings, "fish_audio_model", "s2.1-pro-free")
+    asyncio.run(collect())
+    assert seen["headers"]["model"] == "s2.1-pro-free"
+    assert b'"reference_id":"voice-123"' in seen["body"].replace(b" ", b"")

@@ -17,6 +17,9 @@ class Settings(BaseSettings):
     anthropic_api_key: str = ""
     fish_audio_api_key: str = ""
     fish_audio_voice_id: str = ""
+    # Optional Fish Audio model (sent as the `model` header). Empty uses Fish's default; the free developer
+    # tier uses "s2.1-pro-free".
+    fish_audio_model: str = ""
 
     github_token: str = ""
     github_username: str = "Kuro262004"
