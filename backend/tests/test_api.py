@@ -21,7 +21,7 @@ def test_health_and_profile(client):
     assert p["profile"]["name"] == "Justin H. Sales"
     assert [s["module"] for s in p["skills"]][0] == "AI & Voice"
     assert {x["id"] for x in p["projects"]} >= {"hotel-scan-to-order", "damaiyan", "botpoints"}
-    assert p["profile"]["contacts"]["phone"] == "+63 968 558 4849"
+    assert not p["profile"]["contacts"].get("phone")  # kept off the public site so it isn't scraped
 
 
 def test_status_defaults_offline(client):

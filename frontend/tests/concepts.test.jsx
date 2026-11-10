@@ -145,6 +145,23 @@ describe("first-visit notifications", () => {
     expect(screen.getByRole("status")).toBeEmptyDOMElement();
   });
 
+  it("on phones, waits until the visitor scrolls past the hero so it never covers the hero buttons", async () => {
+    window.matchMedia = (q) => ({ matches: q.includes("max-width"), addEventListener() {}, removeEventListener() {} });
+    renderWithQuery(<Notifications />);
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(4000);
+    });
+    expect(screen.getByRole("status")).toBeEmptyDOMElement();
+    expect(sessionStorage.getItem("notified")).toBeNull(); // not used up while it was waiting
+    await act(async () => {
+      window.scrollY = window.innerHeight + 10;
+      window.dispatchEvent(new Event("scroll"));
+      await vi.advanceTimersByTimeAsync(1600);
+    });
+    expect(screen.getByRole("status")).toHaveTextContent(/Launched: plain view/);
+    window.scrollY = 0;
+  });
+
   it("stays silent with reduced motion", async () => {
     delete window.matchMedia;
     renderWithQuery(<Notifications />);

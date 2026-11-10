@@ -98,7 +98,7 @@ ${site ? `<link rel="canonical" href="${esc(site)}/plain/">\n<meta property="og:
   <h2 id="contact">Contact</h2>
   <ul class="contact">
     <li>Email: <a href="mailto:${esc(c.email)}">${esc(c.email)}</a></li>
-    <li>Phone: <a href="tel:${esc(c.phone.replace(/\s/g, ""))}">${esc(c.phone)}</a></li>
+    ${c.phone ? `<li>Phone: <a href="tel:${esc(c.phone.replace(/\s/g, ""))}">${esc(c.phone)}</a></li>` : ""}
     <li>LinkedIn: <a href="${esc(href(c.linkedin))}">${esc(c.linkedin)}</a></li>
     <li>GitHub: <a href="${esc(href(c.github))}">${esc(c.github)}</a></li>
     <li>Languages: ${esc((c.languages || []).join(", "))}</li>

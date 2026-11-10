@@ -19,8 +19,9 @@ def build_chunks(db: Session) -> list[tuple[str, str, str]]:
             out.append(("profile", "now", f"What {p.name} is building now: {p.extras['now_building']}"))
         out.append((
             "profile", "contact",
-            f"Contact {p.name}: email {c.get('email','')}, phone {c.get('phone','')}, "
-            f"LinkedIn {c.get('linkedin','')}, GitHub {c.get('github','')}. "
+            f"Contact {p.name}: email {c.get('email','')}, "
+            + (f"phone {c['phone']}, " if c.get("phone") else "")
+            + f"LinkedIn {c.get('linkedin','')}, GitHub {c.get('github','')}. "
             f"Languages: {', '.join(c.get('languages', []))}.",
         ))
     modules: dict[str, list[str]] = {}

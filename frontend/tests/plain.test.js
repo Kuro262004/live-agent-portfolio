@@ -12,7 +12,8 @@ describe("plain view", () => {
     const esc = (t) => t.replace(/&/g, "&amp;");
     for (const p of seed.projects) expect(html).toContain(esc(p.name));
     for (const e of seed.experience) expect(html).toContain(esc(e.title));
-    expect(html).toContain("+63 968 558 4849");
+    expect(html).not.toContain("Phone:"); // the phone number is kept off the public site
+    expect(renderPlain({ ...seed, profile: { ...seed.profile, contacts: { ...seed.profile.contacts, phone: "+63 900 000 0000" } } })).toContain("+63 900 000 0000");
     expect(html).toContain("Ilocos Sur Polytechnic State College");
     expect(html).not.toMatch(/<script/i);
     expect(html).toContain("@media print");

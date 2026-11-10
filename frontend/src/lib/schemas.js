@@ -10,7 +10,7 @@ export const portfolioSchema = z.object({
     testimonials: z.array(z.object({ quote: z.string(), name: z.string(), role: z.string().default("") })).default([]),
     contacts: z.object({
       email: z.string(),
-      phone: z.string(),
+      phone: z.string().default(""), // optional: left out of the public site so it isn't scraped
       linkedin: z.string(),
       github: z.string(),
       languages: z.array(z.string()).default([]),
